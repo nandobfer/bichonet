@@ -9,11 +9,11 @@ export const SignupButton: React.FC<ButtonProps> = (props) => {
     return (
         <Button
             mode="contained"
-            {...props}
-            style={{ flex: 1, borderRadius: 100 }}
+            style={[{ flex: 1, borderRadius: 100 }, props.style]}
             labelStyle={[{ fontSize: 20, fontWeight: "bold" }]}
             textColor={colors.background}
             contentStyle={[{ paddingVertical: 5 }]}
+            {...props}
         />
     )
 }

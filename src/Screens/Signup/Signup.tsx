@@ -7,10 +7,13 @@ import { UserForm } from "../../types/UserForm"
 import { user_schema } from "../../schemas/user_schema"
 import { SignupInput } from "./SignupInput"
 import { SignupButton } from "./SignupButton"
+import { useLinkTo } from "@react-navigation/native"
 
 interface SignupProps {}
 
 export const Signup: React.FC<SignupProps> = ({}) => {
+    const linkTo = useLinkTo()
+
     const [showPassword, setShowPassword] = useState(false)
 
     const formik = useFormik<UserForm>({
@@ -95,7 +98,17 @@ export const Signup: React.FC<SignupProps> = ({}) => {
                 />
             </View>
 
-            <SignupButton onPress={() => formik.handleSubmit()}>SALVAR</SignupButton>
+            <View style={[{ gap: 20 }]}>
+                <SignupButton onPress={() => formik.handleSubmit()}>SALVAR</SignupButton>
+                <SignupButton
+                    mode="outlined"
+                    style={{ borderColor: colors.secondary, borderRadius: 100 }}
+                    textColor={colors.secondary}
+                    onPress={() => linkTo("/")}
+                >
+                    VOLTAR
+                </SignupButton>
+            </View>
         </ScrollView>
     )
 }
