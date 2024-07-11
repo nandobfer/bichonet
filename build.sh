@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ssh_profile="root@agencyboz"
-user="agenc4028"
-domain="agenciaboz.com.br"
-subdomain="startja.agenciaboz.com.br"
+user="nando1964"
+domain="nandoburgos.dev"
+subdomain="bichonet.nandoburgos.dev"
 
 path="/home/${domain}/${subdomain}"
 

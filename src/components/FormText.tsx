@@ -24,6 +24,10 @@ export interface FormTextProps extends TextInputProps {
         setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => Promise<void> | Promise<FormikErrors<any>>
     }
     transparent?: boolean
+    color?: string
+    labelSize?: number
+    labelBold?: boolean
+    labelCentered?: boolean
 }
 
 export const FormText = React.forwardRef<React.ElementRef<typeof OriginalInput>, FormTextProps>((props, ref) => {
@@ -36,18 +40,25 @@ export const FormText = React.forwardRef<React.ElementRef<typeof OriginalInput>,
             <LabeledComponent
                 label={props.label || ""}
                 marginBottom={5}
+                color={props.color}
+                fontSize={props.labelSize}
+                bold={props.labelBold}
+                centered={props.labelCentered}
                 Component={
                     <TextInput
                         ref={ref}
                         {...props}
-                        right={props.right ? error ? <TextInput.Icon icon={"alert-circle"} color={theme.colors.error} /> : props.right : undefined}
+                        right={props.right ? props.right : error ? <TextInput.Icon icon={"alert-circle"} color={theme.colors.error} /> : undefined}
                         label={undefined}
                         mode="outlined"
                         style={[{ backgroundColor: "transparent", flexShrink: 0 }, props.multiline && { paddingVertical: 10 }, props.style]}
-                        outlineStyle={{
-                            borderRadius: 5,
-                            borderColor: error ? theme.colors.error : undefined,
-                        }}
+                        outlineStyle={[
+                            {
+                                borderRadius: 5,
+                                borderColor: error ? theme.colors.error : undefined,
+                            },
+                            props.outlineStyle,
+                        ]}
                         dense
                         returnKeyType={props.returnKeyType || "next"}
                         error={error}

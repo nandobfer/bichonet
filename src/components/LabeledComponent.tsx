@@ -10,9 +10,24 @@ interface LabeledComponentProps {
     orientation?: "vertical" | "horizontal"
     reverse?: boolean
     style?: ViewStyle
+    color?: string
+    fontSize?: number
+    bold?: boolean
+    centered?: boolean
 }
 
-export const LabeledComponent: React.FC<LabeledComponentProps> = ({ label, Component, marginBottom, orientation = "vertical", reverse, style }) => {
+export const LabeledComponent: React.FC<LabeledComponentProps> = ({
+    label,
+    Component,
+    marginBottom,
+    orientation = "vertical",
+    reverse,
+    style,
+    color,
+    fontSize,
+    bold,
+    centered,
+}) => {
     return (
         <View
             style={[
@@ -25,7 +40,10 @@ export const LabeledComponent: React.FC<LabeledComponentProps> = ({ label, Compo
                 style,
             ]}
         >
-            <Text variant="bodySmall" style={[{ marginLeft: 5, marginBottom }]}>
+            <Text
+                variant="bodySmall"
+                style={[{ marginLeft: 5, marginBottom, color, fontSize }, bold && { fontWeight: "bold" }, centered && { alignSelf: "center" }]}
+            >
                 {label}
             </Text>
             {Component}
