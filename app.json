@@ -1,0 +1,64 @@
+{
+  "expo": {
+      "name": "BichoNET",
+      "slug": "bichonet",
+      "owner": "nandoburgos",
+      "scheme": "bichonet",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/icon.png",
+      "userInterfaceStyle": "light",
+      "splash": {
+          "image": "./assets/splash.png",
+          "resizeMode": "cover",
+          "backgroundColor": "#ffffff"
+      },
+      "assetBundlePatterns": ["**/*"],
+      "ios": {
+          "userInterfaceStyle": "light",
+          "supportsTablet": false,
+          "bundleIdentifier": "dev.nandoburgos.bichonet",
+          "associatedDomains": ["applinks:bichonet.nandoburgos.dev"]
+      },
+      "android": {
+          "userInterfaceStyle": "light",
+          "adaptiveIcon": {
+              "foregroundImage": "./assets/foreground-icon.png",
+              "monochromeImage": "./assets/adaptive-icon.png",
+              "backgroundColor": "#ffffff"
+          },
+          "softwareKeyboardLayoutMode": "resize",
+          "package": "dev.nandoburgos.bichonet"
+      },
+      "web": {
+          "favicon": "./assets/favicon.png"
+      },
+      "notification": {
+          "icon": "./assets/notification-icon.png",
+          "color": "#007500"
+      },
+      "plugins": [
+          ["./plugins/withDisableForcedDarkModeAndroid.js", {}],
+          ["./plugins/withAndroidLargeHeap.js", {}],
+          [
+              "expo-image-picker",
+              {
+                  "photosPermission": "The app accesses your photos to let you upload it in your profile."
+              }
+          ],
+          [
+              "expo-font",
+              {
+                  "fonts": []
+              }
+          ],
+          [
+              "expo-notifications",
+              {
+                  "icon": "./assets/notification-icon.png",
+                  "color": "#007500"
+              }
+          ]
+      ]
+  }
+}
