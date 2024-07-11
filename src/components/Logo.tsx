@@ -10,5 +10,5 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ size = 200, style, contentFit = "contain" }) => {
-    return <Image source={require("../../assets/logo.webp")} style={[{ height: size, width: (993 * size) / 369 }, style]} contentFit={contentFit} />
+    return <Image source={require("../../assets/logo.png")} style={[{ height: size, width: (993 * size) / 369 }, style]} contentFit={contentFit} />
 }
