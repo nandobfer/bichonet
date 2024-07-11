@@ -22,8 +22,8 @@ export const Home: React.FC<HomeProps> = ({}) => {
             <Logo style={{ width: "100%" }} />
 
             <View style={[{ flexDirection: "row", alignItems: "center", gap: 25 }]}>
-                <Text style={[{ color: colors.secondary, fontSize: 18 }]}>Agora você pode apostar quando e onde quiser.</Text>
-                <Image source={require("../../../assets/trevo.png")} style={[{ width: 100, aspectRatio: 1 }]} />
+                <Text style={[{ color: colors.secondary, fontSize: 17 }]}>Agora você pode apostar quando e onde quiser.</Text>
+                <Image source={require("../../../assets/trevo.png")} style={[{ width: 90, aspectRatio: 1 }]} />
             </View>
 
             <View style={[{ gap: 20 }]}>
