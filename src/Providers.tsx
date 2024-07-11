@@ -35,7 +35,7 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
                     },
                 },
             }}
-            documentTitle={{ formatter: (options, route) => `BichoNET - ${route?.path}` }}
+            documentTitle={{ formatter: (options, route) => `JBSORTE - ${route?.path}` }}
         >
             <PaperProvider theme={paper_theme}>
                 <UserProvider>
