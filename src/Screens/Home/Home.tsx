@@ -1,5 +1,5 @@
-import React from "react"
-import { View } from "react-native"
+import React, { useState } from "react"
+import { ScrollView, View } from "react-native"
 import { colors } from "../../style/colors"
 import { Text } from "react-native-paper"
 import { Image } from "expo-image"
@@ -8,15 +8,23 @@ import { SupportBanner } from "./SupportBanner"
 import { useLinkTo } from "@react-navigation/native"
 import { Logo } from "../../components/Logo"
 import { ORIENTATION } from "../../tools/orientation"
+import { LoginContainer } from "./LoginContainer"
 
 interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = ({}) => {
     const linkTo = useLinkTo()
 
+    const [loginForm, setLoginForm] = useState(false)
+
     return (
-        <View
-            style={[{ flex: 1, backgroundColor: colors.background }, ORIENTATION == "desktop" ? { flexDirection: "row" } : { padding: 50, gap: 30 }]}
+        <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={[
+                { flex: 1, backgroundColor: colors.background },
+                ORIENTATION == "desktop" ? { flexDirection: "row" } : { padding: 50, gap: 30 },
+            ]}
+            keyboardShouldPersistTaps="handled"
         >
             <Logo style={[ORIENTATION == "mobile" ? { width: "100%" } : { flex: 0.5, height: "auto", margin: 100 }]} />
 
@@ -47,14 +55,18 @@ export const Home: React.FC<HomeProps> = ({}) => {
                     />
                 </View>
 
-                <View style={[{ gap: 20 }, ORIENTATION == "desktop" && { marginTop: 120 }]}>
-                    <HomeButton onPress={() => console.log("oi")}>ENTRAR</HomeButton>
-                    <HomeButton onPress={() => linkTo("/cadastro")}>CADASTRAR</HomeButton>
-                    <HomeButton onPress={() => linkTo("/inicio")}>JOGAR SEM CADASTRO</HomeButton>
-                </View>
+                {loginForm ? (
+                    <LoginContainer goBack={() => setLoginForm(false)} />
+                ) : (
+                    <View style={[{ gap: 20 }, ORIENTATION == "desktop" && { marginTop: 120 }]}>
+                        <HomeButton onPress={() => setLoginForm(true)}>ENTRAR</HomeButton>
+                        <HomeButton onPress={() => linkTo("/cadastro")}>CADASTRAR</HomeButton>
+                        <HomeButton onPress={() => linkTo("/inicio")}>JOGAR SEM CADASTRO</HomeButton>
+                    </View>
+                )}
                 {ORIENTATION == "desktop" && <SupportBanner />}
             </View>
             {ORIENTATION == "mobile" && <SupportBanner />}
-        </View>
+        </ScrollView>
     )
 }
