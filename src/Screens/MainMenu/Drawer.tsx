@@ -54,7 +54,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
                         icon={"close-circle"}
                         style={[{ alignSelf: "flex-end", margin: 0 }]}
                         iconColor={colors.secondary}
-                        size={ORIENTATION == "desktop" ? 50 : 30}
+                        size={ORIENTATION == "desktop" ? 50 : 35}
                     />
                     <MenuButton>COTAÇÃO</MenuButton>
                     <MenuButton>REGRAS</MenuButton>

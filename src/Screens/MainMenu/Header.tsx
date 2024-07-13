@@ -20,9 +20,21 @@ export const Header: React.FC<HeaderProps> = ({}) => {
                 ORIENTATION == "desktop" && { padding: 50 },
             ]}
         >
-            <IconButton onPress={logout} icon={"chevron-left-circle"} iconColor={colors.secondary} size={ORIENTATION == "desktop" ? 50 : 30} />
+            <IconButton
+                onPress={logout}
+                icon={"chevron-left-circle"}
+                iconColor={colors.secondary}
+                size={ORIENTATION == "desktop" ? 50 : 35}
+                style={[{ margin: 0 }]}
+            />
             <Logo size={ORIENTATION == "desktop" ? 125 : 75} />
-            <IconButton onPress={() => toggleDrawer()} icon={"menu"} iconColor={colors.secondary} size={ORIENTATION == "desktop" ? 50 : 30} />
+            <IconButton
+                onPress={() => toggleDrawer()}
+                icon={"menu"}
+                iconColor={colors.secondary}
+                size={ORIENTATION == "desktop" ? 50 : 35}
+                style={[{ margin: 0 }]}
+            />
         </View>
     )
 }
