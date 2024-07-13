@@ -1,11 +1,11 @@
 import React from "react"
 import { Image, ImageStyle } from "expo-image"
-import { ColorValue } from "react-native"
+import { ColorValue, StyleProp } from "react-native"
 
 interface LogoProps {
     size?: number
     tintColor?: ColorValue
-    style?: ImageStyle
+    style?: StyleProp<ImageStyle>
     contentFit?: "contain" | "cover" | "fill"
 }
 

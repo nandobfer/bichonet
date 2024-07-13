@@ -7,6 +7,7 @@ import { HomeButton } from "./HomeButton"
 import { SupportBanner } from "./SupportBanner"
 import { useLinkTo } from "@react-navigation/native"
 import { Logo } from "../../components/Logo"
+import { ORIENTATION } from "../../tools/orientation"
 
 interface HomeProps {}
 
@@ -14,25 +15,46 @@ export const Home: React.FC<HomeProps> = ({}) => {
     const linkTo = useLinkTo()
 
     return (
-        <View style={{ flex: 1, backgroundColor: colors.background, padding: 50, gap: 30 }}>
-            {/* <Text style={{ color: colors.secondary, fontSize: 70, width: "100%" }} adjustsFontSizeToFit={true} numberOfLines={1}>
-                BichoNET
-            </Text> */}
+        <View
+            style={[{ flex: 1, backgroundColor: colors.background }, ORIENTATION == "desktop" ? { flexDirection: "row" } : { padding: 50, gap: 30 }]}
+        >
+            <Logo style={[ORIENTATION == "mobile" ? { width: "100%" } : { flex: 0.5, height: "auto", margin: 100 }]} />
 
-            <Logo style={{ width: "100%" }} />
+            <View
+                style={[
+                    ORIENTATION == "desktop"
+                        ? { flex: 0.5, backgroundColor: colors.secondary, padding: 100, justifyContent: "center", gap: 50 }
+                        : { gap: 30 },
+                ]}
+            >
+                <View
+                    style={[
+                        { flexDirection: "row", alignItems: "center", gap: 25 },
+                        ORIENTATION == "desktop" && { flexDirection: "column", gap: 50 },
+                    ]}
+                >
+                    <Text
+                        style={[
+                            { color: colors.secondary, fontSize: 17, fontWeight: "bold" },
+                            ORIENTATION == "desktop" && { color: colors.background, fontSize: 34, textAlign: "center" },
+                        ]}
+                    >
+                        Agora você pode apostar quando e onde quiser.
+                    </Text>
+                    <Image
+                        source={require("../../../assets/trevo.png")}
+                        style={[{ width: 75, aspectRatio: 1 }, ORIENTATION == "desktop" && { width: 200 }]}
+                    />
+                </View>
 
-            <View style={[{ flexDirection: "row", alignItems: "center", gap: 25 }]}>
-                <Text style={[{ color: colors.secondary, fontSize: 17 }]}>Agora você pode apostar quando e onde quiser.</Text>
-                <Image source={require("../../../assets/trevo.png")} style={[{ width: 90, aspectRatio: 1 }]} />
+                <View style={[{ gap: 20 }]}>
+                    <HomeButton onPress={() => console.log("oi")}>ENTRAR</HomeButton>
+                    <HomeButton onPress={() => linkTo("/cadastro")}>CADASTRAR</HomeButton>
+                    <HomeButton onPress={() => console.log("todo")}>JOGAR SEM CADASTRO</HomeButton>
+                </View>
+                {ORIENTATION == "desktop" && <SupportBanner />}
             </View>
-
-            <View style={[{ gap: 20 }]}>
-                <HomeButton onPress={() => console.log("oi")}>ENTRAR</HomeButton>
-                <HomeButton onPress={() => linkTo("/cadastro")}>CADASTRAR</HomeButton>
-                <HomeButton onPress={() => console.log("todo")}>JOGAR SEM CADASTRO</HomeButton>
-            </View>
-
-            <SupportBanner />
+            {ORIENTATION == "mobile" && <SupportBanner />}
         </View>
     )
 }

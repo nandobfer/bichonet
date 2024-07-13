@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar"
 import { Providers } from "./src/Providers"
 import { Routes } from "./src/Routes"
 import { useKeepAwake } from "expo-keep-awake"
-import { Dimensions, SafeAreaView, View } from "react-native"
+import { SafeAreaView } from "react-native"
 import * as SplashScreen from "expo-splash-screen"
 import { useCallback } from "react"
 import { Lato_400Regular, Lato_700Bold, useFonts } from "@expo-google-fonts/lato"
@@ -15,7 +15,6 @@ SplashScreen.preventAutoHideAsync()
 //     UIManager.setLayoutAnimationEnabledExperimental(true)
 // }
 
-const {height, width} = Dimensions.get('screen')
 
 export default function App() {
     useKeepAwake()
@@ -36,13 +35,11 @@ export default function App() {
     }
 
     return (
-        <SafeAreaView onLayout={onLayoutRootView} style={[{ flex: 1, backgroundColor: colors.background }, width > height && { alignItems: 'center'}]}>
-            <View style={[width > height && {width: 800, borderColor: 'red', borderWidth: 1}, {flex: 1}]}>
+        <SafeAreaView onLayout={onLayoutRootView} style={[{ flex: 1, backgroundColor: colors.background }]}>
             <Providers>
                 <StatusBar animated translucent style={"dark"} />
                 <Routes />
             </Providers>
-            </View>
         </SafeAreaView>
     )
 }
