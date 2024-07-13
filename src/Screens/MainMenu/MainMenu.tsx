@@ -7,6 +7,7 @@ import { useUser } from "../../hooks/useUser"
 import { MenuButton } from "./MenuButton"
 import { Text } from "react-native-paper"
 import { currencyMask } from "../../tools/currencyMask"
+import { ORIENTATION } from "../../tools/orientation"
 
 interface MainMenuProps {}
 
@@ -15,7 +16,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({}) => {
     const balance = 100
 
     return (
-        <View style={[{ flex: 1, backgroundColor: colors.background, overflow: "hidden" }]}>
+        <View style={[{ flex: 1, backgroundColor: colors.background, overflow: "hidden" }, ORIENTATION == "desktop" && { paddingHorizontal: 600 }]}>
             <Header />
 
             <View style={[{ paddingHorizontal: 30, gap: 20 }]}>

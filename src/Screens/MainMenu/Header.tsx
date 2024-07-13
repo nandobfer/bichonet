@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
         <View
             style={[
                 { flexDirection: "row", padding: 20, alignItems: "center", justifyContent: "space-between" },
-                ORIENTATION == "desktop" && { padding: 50 },
+                ORIENTATION == "desktop" && { padding: 20, paddingVertical: 50 },
             ]}
         >
             <IconButton
