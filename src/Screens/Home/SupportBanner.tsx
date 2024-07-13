@@ -40,7 +40,7 @@ export const SupportBanner: React.FC<SupportBannerProps> = ({}) => {
             <InfoContainer />
         </View>
     ) : (
-        <View style={{}}>
+        <View style={{ marginTop: "auto" }}>
             <InfoContainer />
         </View>
     )
