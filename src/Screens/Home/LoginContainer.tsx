@@ -54,10 +54,10 @@ export const LoginContainer: React.FC<LoginContainerProps> = ({ goBack }) => {
             />
 
             <View style={[{ flexDirection: "row", gap: 30, marginTop: 10 }, ORIENTATION == "desktop" && { justifyContent: "flex-end" }]}>
-                <HomeButton style={[ORIENTATION == "desktop" && { flex: 0.2 }]} onPress={goBack}>
+                <HomeButton style={[ORIENTATION == "desktop" && { flex: 0.25 }]} onPress={goBack}>
                     VOLTAR
                 </HomeButton>
-                <HomeButton style={[ORIENTATION == "desktop" && { flex: 0.2 }]} onPress={() => formik.handleSubmit()}>
+                <HomeButton style={[ORIENTATION == "desktop" && { flex: 0.25 }]} onPress={() => formik.handleSubmit()}>
                     ENTRAR
                 </HomeButton>
             </View>
