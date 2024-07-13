@@ -27,11 +27,11 @@ export const Home: React.FC<HomeProps> = ({}) => {
                 ORIENTATION == "desktop" ? { flexDirection: "row" } : { padding: 50, paddingBottom: 0 },
             ]}
         >
-            <Logo style={[ORIENTATION == "mobile" ? { width: "100%" } : { flex: 0.5, height: "auto", margin: 100 }]} />
+            <Logo style={[ORIENTATION == "mobile" ? { width: "100%" } : { flex: 0.8, height: "auto", margin: 100 }]} />
 
             <ScrollView
                 keyboardShouldPersistTaps="handled"
-                style={[ORIENTATION == "desktop" ? { flex: 0.5, backgroundColor: colors.secondary } : { marginHorizontal: -50 }]}
+                style={[ORIENTATION == "desktop" ? { flex: 1, backgroundColor: colors.secondary } : { marginHorizontal: -50 }]}
                 contentContainerStyle={[
                     ORIENTATION == "desktop"
                         ? { padding: 100, gap: 50, paddingBottom: 0, flex: 1 }
