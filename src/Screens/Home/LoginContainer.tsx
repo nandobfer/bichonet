@@ -3,7 +3,7 @@ import { View, TextInput as NTextInput } from "react-native"
 import { SignupInput } from "../Signup/SignupInput"
 import { useFormik } from "formik"
 import { focusInput } from "../../tools/focusInput"
-import { TextInput } from "react-native-paper"
+import { Text, TextInput } from "react-native-paper"
 import { colors } from "../../style/colors"
 import { HomeButton } from "./HomeButton"
 import { ORIENTATION } from "../../tools/orientation"
@@ -26,6 +26,14 @@ export const LoginContainer: React.FC<LoginContainerProps> = ({ goBack }) => {
 
     return (
         <View style={[{ gap: 20 }]}>
+            <Text
+                style={[
+                    { fontWeight: "bold", fontSize: 24, textAlign: "center" },
+                    ORIENTATION == "desktop" ? { color: colors.background } : { color: colors.secondary },
+                ]}
+            >
+                Entrar
+            </Text>
             <SignupInput
                 formik={formik}
                 name="phone"
@@ -54,10 +62,23 @@ export const LoginContainer: React.FC<LoginContainerProps> = ({ goBack }) => {
             />
 
             <View style={[{ flexDirection: "row", gap: 30, marginTop: 10 }, ORIENTATION == "desktop" && { justifyContent: "flex-end" }]}>
-                <HomeButton style={[ORIENTATION == "desktop" && { flex: 0.25 }]} onPress={goBack}>
+                <HomeButton
+                    style={[
+                        { borderColor: ORIENTATION == "desktop" ? colors.background : colors.secondary, borderRadius: 100 },
+                        ORIENTATION == "desktop" && { flex: 0.25 },
+                    ]}
+                    mode="outlined"
+                    buttonColor={ORIENTATION == "desktop" ? colors.secondary : colors.background}
+                    textColor={ORIENTATION == "desktop" ? colors.background : colors.secondary}
+                    onPress={goBack}
+                >
                     VOLTAR
                 </HomeButton>
-                <HomeButton style={[ORIENTATION == "desktop" && { flex: 0.25 }]} onPress={() => formik.handleSubmit()}>
+                <HomeButton
+                    style={[ORIENTATION == "desktop" && { flex: 0.25 }]}
+                    buttonColor={ORIENTATION == "desktop" ? colors.background : colors.primary}
+                    onPress={() => formik.handleSubmit()}
+                >
                     ENTRAR
                 </HomeButton>
             </View>

@@ -34,7 +34,7 @@ export const Home: React.FC<HomeProps> = ({}) => {
                 style={[ORIENTATION == "desktop" ? { flex: 0.5, backgroundColor: colors.secondary } : { marginHorizontal: -50 }]}
                 contentContainerStyle={[
                     ORIENTATION == "desktop"
-                        ? { flex: 0.5, padding: 100, gap: 50, paddingBottom: 0 }
+                        ? { padding: 100, gap: 50, paddingBottom: 0, flex: 1 }
                         : { gap: 30, paddingHorizontal: 50, paddingBottom: 0, paddingTop: 30, flex: 1 },
                 ]}
             >
@@ -65,7 +65,7 @@ export const Home: React.FC<HomeProps> = ({}) => {
                         <SignupForm goBack={() => setSignupForm(false)} />
                     </View>
                 ) : (
-                    <View style={[{ gap: 30 }, ORIENTATION == "desktop" && { marginTop: 100 }]}>
+                    <View style={[{ gap: 30 }, ORIENTATION == "desktop" && { marginTop: 90 }]}>
                         <HomeButton onPress={() => setLoginForm(true)}>ENTRAR</HomeButton>
                         <HomeButton onPress={() => setSignupForm(true)}>CADASTRAR</HomeButton>
                         <HomeButton onPress={() => linkTo("/inicio")}>JOGAR SEM CADASTRO</HomeButton>
