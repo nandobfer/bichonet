@@ -97,7 +97,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
                 onSubmitEditing={() => formik.handleSubmit()}
                 returnKeyType="done"
             />
-            <View style={[{ gap: 20 }]}>
+            <View style={[{ gap: 30, marginTop: 10 }]}>
                 <HomeButton buttonColor={ORIENTATION == "desktop" ? colors.background : colors.primary} onPress={() => formik.handleSubmit()}>
                     SALVAR
                 </HomeButton>
