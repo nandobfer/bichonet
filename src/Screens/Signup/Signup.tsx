@@ -8,6 +8,7 @@ import { user_schema } from "../../schemas/user_schema"
 import { SignupInput } from "./SignupInput"
 import { SignupButton } from "./SignupButton"
 import { useLinkTo } from "@react-navigation/native"
+import { ORIENTATION } from "../../tools/orientation"
 
 interface SignupProps {}
 
@@ -46,11 +47,11 @@ export const Signup: React.FC<SignupProps> = ({}) => {
     return (
         <ScrollView
             contentContainerStyle={[{ padding: 50, gap: 30 }]}
-            style={{ flex: 1, backgroundColor: colors.background }}
+            style={[{ flex: 1, backgroundColor: colors.background }, ORIENTATION == "desktop" && { paddingHorizontal: 500 }]}
             keyboardShouldPersistTaps="handled"
         >
             <View style={[{ alignSelf: "center" }]}>
-                <Icon size={200} source={"account-circle"} color={colors.secondary} />
+                <Icon size={ORIENTATION == "desktop" ? 300 : 200} source={"account-circle"} color={colors.secondary} />
             </View>
 
             <View style={[{ gap: 20 }]}>
