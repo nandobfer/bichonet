@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { createContext, useEffect, useState } from "react"
 import React from "react"
-import { User } from "../types/server/class"
+import { User } from "../types/User"
 
 interface UserContextValue {
     user: User | null

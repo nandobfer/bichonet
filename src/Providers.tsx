@@ -4,6 +4,7 @@ import { PaperProvider, Text } from "react-native-paper"
 import { UserProvider } from "./contexts/userContext"
 import { NavigationContainer } from "@react-navigation/native"
 import constants from "expo-constants"
+import { DrawerProvider } from "./contexts/drawerContext"
 
 interface ProvidersProps {
     children?: React.ReactNode
@@ -40,8 +41,10 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
         >
             <PaperProvider theme={paper_theme}>
                 <UserProvider>
-                    {children}
-                    <Text style={{ position: "absolute", bottom: 5, right: 5, color: "red" }}>{constants.expoConfig?.version}</Text>
+                    <DrawerProvider>
+                        {children}
+                        <Text style={{ position: "absolute", bottom: 5, right: 5, color: "red" }}>{constants.expoConfig?.version}</Text>
+                    </DrawerProvider>
                 </UserProvider>
             </PaperProvider>
         </NavigationContainer>
