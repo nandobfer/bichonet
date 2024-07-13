@@ -30,7 +30,7 @@ const InfoContainer: React.FC = () => (
 
 export const SupportBanner: React.FC<SupportBannerProps> = ({}) => {
     return ORIENTATION == "mobile" ? (
-        <View style={[{ position: "relative", marginHorizontal: -50, marginTop: "auto", marginBottom: -50 }]}>
+        <View style={[{ position: "relative", marginHorizontal: -50, marginTop: "auto" }]}>
             <LinearGradient
                 style={[{ position: "absolute", width: "100%", height: "100%" }]}
                 colors={["#01346f", "#038ded"]}

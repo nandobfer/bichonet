@@ -9,6 +9,8 @@ import { useLinkTo } from "@react-navigation/native"
 import { Logo } from "../../components/Logo"
 import { ORIENTATION } from "../../tools/orientation"
 import { LoginContainer } from "./LoginContainer"
+import { Signup } from "../Signup/Signup"
+import { SignupForm } from "../Signup/SignupForm"
 
 interface HomeProps {}
 
@@ -16,23 +18,22 @@ export const Home: React.FC<HomeProps> = ({}) => {
     const linkTo = useLinkTo()
 
     const [loginForm, setLoginForm] = useState(false)
+    const [signupForm, setSignupForm] = useState(false)
 
     return (
-        <ScrollView
-            style={{ flex: 1 }}
-            contentContainerStyle={[
+        <View
+            style={[
                 { flex: 1, backgroundColor: colors.background },
-                ORIENTATION == "desktop" ? { flexDirection: "row" } : { padding: 50, gap: 30 },
+                ORIENTATION == "desktop" ? { flexDirection: "row" } : { padding: 50, paddingBottom: 0 },
             ]}
-            keyboardShouldPersistTaps="handled"
         >
             <Logo style={[ORIENTATION == "mobile" ? { width: "100%" } : { flex: 0.5, height: "auto", margin: 100 }]} />
 
-            <View
-                style={[
-                    ORIENTATION == "desktop"
-                        ? { flex: 0.5, backgroundColor: colors.secondary, padding: 100, gap: 50, paddingBottom: 0 }
-                        : { gap: 30 },
+            <ScrollView
+                keyboardShouldPersistTaps="handled"
+                style={[ORIENTATION == "desktop" ? { flex: 0.5, backgroundColor: colors.secondary } : { marginHorizontal: -50 }]}
+                contentContainerStyle={[
+                    ORIENTATION == "desktop" ? { flex: 0.5, padding: 100, gap: 50, paddingBottom: 0 } : { gap: 30, padding: 50, paddingBottom: 0 },
                 ]}
             >
                 <View
@@ -57,16 +58,19 @@ export const Home: React.FC<HomeProps> = ({}) => {
 
                 {loginForm ? (
                     <LoginContainer goBack={() => setLoginForm(false)} />
+                ) : signupForm ? (
+                    <View>
+                        <SignupForm goBack={() => setSignupForm(false)} />
+                    </View>
                 ) : (
                     <View style={[{ gap: 20 }, ORIENTATION == "desktop" && { marginTop: 120 }]}>
                         <HomeButton onPress={() => setLoginForm(true)}>ENTRAR</HomeButton>
-                        <HomeButton onPress={() => linkTo("/cadastro")}>CADASTRAR</HomeButton>
+                        <HomeButton onPress={() => setSignupForm(true)}>CADASTRAR</HomeButton>
                         <HomeButton onPress={() => linkTo("/inicio")}>JOGAR SEM CADASTRO</HomeButton>
                     </View>
                 )}
-                {ORIENTATION == "desktop" && <SupportBanner />}
-            </View>
-            {ORIENTATION == "mobile" && <SupportBanner />}
-        </ScrollView>
+                <SupportBanner />
+            </ScrollView>
+        </View>
     )
 }

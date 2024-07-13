@@ -8,12 +8,12 @@ export const HomeButton: React.FC<ButtonProps> = (props) => {
     return (
         <Button
             mode="contained"
-            {...props}
-            style={[{ flex: 1, borderRadius: 100 }, props.style]}
             buttonColor={ORIENTATION == "mobile" ? colors.secondary : colors.background}
             textColor={ORIENTATION == "mobile" ? colors.background : colors.secondary}
             labelStyle={[{ fontSize: 22, fontWeight: "bold" }]}
             contentStyle={[{ paddingVertical: 5 }]}
+            {...props}
+            style={[{ flex: 1, borderRadius: 100 }, props.style]}
         />
     )
 }
