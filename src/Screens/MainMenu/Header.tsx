@@ -6,11 +6,12 @@ import { colors } from "../../style/colors"
 import { ORIENTATION } from "../../tools/orientation"
 import { useUser } from "../../hooks/useUser"
 import { useDrawer } from "../../hooks/useDrawer"
+import { useNavigation } from "@react-navigation/native"
 
 interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = ({}) => {
-    const { logout } = useUser()
+    const navigation = useNavigation()
     const { toggleDrawer } = useDrawer()
 
     return (
@@ -21,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
             ]}
         >
             <IconButton
-                onPress={logout}
+                onPress={() => navigation.goBack()}
                 icon={"chevron-left-circle"}
                 iconColor={colors.secondary}
                 size={ORIENTATION == "desktop" ? 50 : 35}

@@ -3,16 +3,20 @@ import { View } from "react-native"
 import { Button, ButtonProps, Text, TouchableRipple } from "react-native-paper"
 import { colors } from "../../style/colors"
 import { ORIENTATION } from "../../tools/orientation"
+import { useLinkTo } from "@react-navigation/native"
+import { GameOption } from "../../types/GameOption"
 
 interface GameListButtonProps {
-    label: string
-    secondary_label?: string
+    option: GameOption
 }
 
-export const GameListButton: React.FC<GameListButtonProps> = ({ label, secondary_label }) => {
+export const GameListButton: React.FC<GameListButtonProps> = ({ option }) => {
+    const linkTo = useLinkTo()
+
     return (
         <TouchableRipple
             borderless
+            onPress={() => linkTo(`/jogo?tipo=${option.path}`)}
             style={[
                 {
                     borderRadius: 10,
@@ -24,7 +28,7 @@ export const GameListButton: React.FC<GameListButtonProps> = ({ label, secondary
                     padding: 10,
                     gap: 5,
                 },
-                !label && { opacity: 0, pointerEvents: "none" },
+                !option.label && { opacity: 0, pointerEvents: "none" },
             ]}
         >
             <>
@@ -35,10 +39,10 @@ export const GameListButton: React.FC<GameListButtonProps> = ({ label, secondary
                     ]}
                     numberOfLines={2}
                 >
-                    {label}
+                    {option.label}
                 </Text>
                 <Text style={[{ fontSize: 10, color: colors.background, fontWeight: "bold" }, ORIENTATION == "desktop" && { fontSize: 16 }]}>
-                    {secondary_label}
+                    {option.secondary_label}
                 </Text>
             </>
         </TouchableRipple>

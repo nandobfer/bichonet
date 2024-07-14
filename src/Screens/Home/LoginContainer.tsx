@@ -7,18 +7,22 @@ import { Text, TextInput } from "react-native-paper"
 import { colors } from "../../style/colors"
 import { HomeButton } from "./HomeButton"
 import { ORIENTATION } from "../../tools/orientation"
+import { useLinkTo } from "@react-navigation/native"
 
 interface LoginContainerProps {
     goBack: () => void
 }
 
 export const LoginContainer: React.FC<LoginContainerProps> = ({ goBack }) => {
+    const linkTo = useLinkTo()
+
     const [showPassword, setShowPassword] = useState(false)
 
     const formik = useFormik({
         initialValues: { phone: "", password: "" },
         async onSubmit(values, formikHelpers) {
             console.log(values)
+            linkTo("/inicio")
         },
     })
 

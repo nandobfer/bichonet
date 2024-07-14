@@ -9,6 +9,7 @@ import { Text } from "react-native-paper"
 import { currencyMask } from "../../tools/currencyMask"
 import { ORIENTATION } from "../../tools/orientation"
 import { useLinkTo } from "@react-navigation/native"
+import { DefaultWrapper } from "../../components/DefaultWrapper"
 
 interface MainMenuProps {}
 
@@ -19,9 +20,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({}) => {
     const balance = 100
 
     return (
-        <View style={[{ flex: 1, backgroundColor: colors.background, overflow: "hidden" }, ORIENTATION == "desktop" && { paddingHorizontal: 600 }]}>
-            <Header />
-
+        <DefaultWrapper>
             <View style={[{ paddingHorizontal: 30, gap: 20 }]}>
                 <Text style={[{ color: colors.secondary, alignSelf: "center", fontSize: 20 }]}>
                     CŔEDITO: <Text style={[{ color: balance > 0 ? colors.success : colors.error, fontWeight: "bold" }]}>{currencyMask(balance)}</Text>
@@ -32,8 +31,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({}) => {
                 <MenuButton>CARTEIRA</MenuButton>
                 <MenuButton>MEU LINK</MenuButton>
             </View>
-
-            <Drawer />
-        </View>
+        </DefaultWrapper>
     )
 }

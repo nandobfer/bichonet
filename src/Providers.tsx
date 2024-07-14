@@ -5,6 +5,7 @@ import { UserProvider } from "./contexts/userContext"
 import { NavigationContainer } from "@react-navigation/native"
 import constants from "expo-constants"
 import { DrawerProvider } from "./contexts/drawerContext"
+import { game_list } from "./Screens/GameList/game_list"
 
 interface ProvidersProps {
     children?: React.ReactNode
@@ -34,6 +35,7 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
                         signup: "cadastro",
                         mainmenu: "inicio",
                         gamelist: "jogar",
+                        game: "jogo",
                         notfound: "*",
                     },
                 },
