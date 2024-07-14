@@ -16,6 +16,13 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     const [value, setValue] = useState("")
 
+    const handleChangeValue = (typed: string) => {
+        const numeric = typed.match(/\d/g)
+        if (numeric?.length == typed.length || !typed) {
+            setValue(typed)
+        }
+    }
+
     return game ? (
         <DefaultWrapper>
             <View style={[{ paddingHorizontal: 30, gap: 20 }]}>
@@ -26,7 +33,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                 <TextInput
                     mode="outlined"
                     value={value}
-                    onChangeText={(value) => setValue(value)}
+                    onChangeText={handleChangeValue}
                     outlineStyle={[{ borderRadius: 15 }]}
                     keyboardType="number-pad"
                     contentStyle={[{ textAlign: "center", fontSize: 40, fontWeight: "bold", color: colors.background }]}
