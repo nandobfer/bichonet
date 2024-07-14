@@ -15,7 +15,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
 
     useEffect(() => {
         Animated.timing(opacity, {
-            toValue: menuDrawer ? 0 : 0.5,
+            toValue: menuDrawer ? 0.5 : 0,
             duration: 300,
             useNativeDriver: true,
         }).start()
@@ -24,7 +24,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
     return (
         <>
             <Animated.View
-                pointerEvents={!menuDrawer ? "auto" : "none"} // This ensures the Pressable can be interacted with when visible
+                pointerEvents={menuDrawer ? "auto" : "none"} // This ensures the Pressable can be interacted with when visible
                 style={{
                     position: "absolute",
                     left: 0,

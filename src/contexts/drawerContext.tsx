@@ -29,7 +29,7 @@ export const DrawerProvider: React.FC<DrawerProviderProps> = ({ children }) => {
 
     const toggleDrawer = () => {
         Animated.timing(translateX, {
-            toValue: menuDrawer ? 0 : width,
+            toValue: menuDrawer ? width : 0,
             duration: 300,
             useNativeDriver: true,
         }).start()
