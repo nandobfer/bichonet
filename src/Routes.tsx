@@ -5,14 +5,16 @@ import { NotFound } from "./Screens/NotFound"
 import { Home } from "./Screens/Home/Home"
 import { Signup } from "./Screens/Signup/Signup"
 import { MainMenu } from "./Screens/MainMenu/MainMenu"
+import { GameList } from "./Screens/GameList/GameList"
 
 interface RoutesProps {}
 
 export type HomeStackParams = {
     home: undefined
     signup: undefined
-    notfound: undefined
     mainmenu: undefined
+    gamelist: undefined
+    notfound: undefined
 }
 
 const Stack = createNativeStackNavigator<HomeStackParams>()
@@ -28,8 +30,9 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
         >
             <Stack.Screen name="home" component={Home} />
             <Stack.Screen name="signup" component={Signup} />
-            <Stack.Screen name="notfound" component={NotFound} />
             <Stack.Screen name="mainmenu" component={MainMenu} />
+            <Stack.Screen name="gamelist" component={GameList} />
+            <Stack.Screen name="notfound" component={NotFound} />
         </Stack.Navigator>
     )
 }

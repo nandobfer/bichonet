@@ -33,6 +33,7 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
                         },
                         signup: "cadastro",
                         mainmenu: "inicio",
+                        gamelist: "jogar",
                         notfound: "*",
                     },
                 },

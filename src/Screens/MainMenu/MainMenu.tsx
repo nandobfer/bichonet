@@ -8,11 +8,14 @@ import { MenuButton } from "./MenuButton"
 import { Text } from "react-native-paper"
 import { currencyMask } from "../../tools/currencyMask"
 import { ORIENTATION } from "../../tools/orientation"
+import { useLinkTo } from "@react-navigation/native"
 
 interface MainMenuProps {}
 
 export const MainMenu: React.FC<MainMenuProps> = ({}) => {
+    const linkTo = useLinkTo()
     const { user } = useUser()
+
     const balance = 100
 
     return (
@@ -24,7 +27,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({}) => {
                     CŔEDITO: <Text style={[{ color: balance > 0 ? colors.success : colors.error, fontWeight: "bold" }]}>{currencyMask(balance)}</Text>
                 </Text>
 
-                <MenuButton>JOGAR</MenuButton>
+                <MenuButton onPress={() => linkTo("/jogar")}>JOGAR</MenuButton>
                 <MenuButton>VER MEU JOGO</MenuButton>
                 <MenuButton>CARTEIRA</MenuButton>
                 <MenuButton>MEU LINK</MenuButton>
