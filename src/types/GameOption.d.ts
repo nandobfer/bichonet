@@ -3,4 +3,5 @@ export interface GameOption {
     path: string
     secondary_label?: string
     max_chars: number
+    prizes: number
 }
