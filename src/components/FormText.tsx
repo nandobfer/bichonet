@@ -48,7 +48,6 @@ export const FormText = React.forwardRef<React.ElementRef<typeof OriginalInput>,
                     <TextInput
                         ref={ref}
                         {...props}
-                        right={props.right ? props.right : error ? <TextInput.Icon icon={"alert-circle"} color={theme.colors.error} /> : undefined}
                         label={undefined}
                         mode="outlined"
                         style={[{ backgroundColor: "transparent", flexShrink: 0 }, props.multiline && { paddingVertical: 10 }, props.style]}
