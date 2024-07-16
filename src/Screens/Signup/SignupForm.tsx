@@ -11,6 +11,8 @@ import { SignupInput } from "./SignupInput"
 import { SignupButton } from "./SignupButton"
 import { useLinkTo } from "@react-navigation/native"
 import { HomeButton } from "../Home/HomeButton"
+import { api } from "../../backend/api"
+import unmask from "../../tools/unmask"
 
 interface SignupFormProps {
     goBack?: () => void
@@ -20,6 +22,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
     const linkTo = useLinkTo()
 
     const [showPassword, setShowPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const formik = useFormik<UserForm>({
         initialValues: {
@@ -29,7 +32,17 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
             phone: "",
         },
         async onSubmit(values, formikHelpers) {
-            console.log(values)
+            if (loading) return
+            setLoading(true)
+
+            try {
+                const response = await api.post("/user", { ...values, phone: unmask(values.phone) })
+                console.log(response.data)
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setLoading(false)
+            }
         },
         validationSchema: user_schema,
         validateOnChange: false,
@@ -98,7 +111,11 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
                 returnKeyType="done"
             />
             <View style={[{ gap: 30, marginTop: 10 }]}>
-                <HomeButton buttonColor={ORIENTATION == "desktop" ? colors.background : colors.primary} onPress={() => formik.handleSubmit()}>
+                <HomeButton
+                    buttonColor={ORIENTATION == "desktop" ? colors.background : colors.primary}
+                    onPress={() => formik.handleSubmit()}
+                    loading={loading}
+                >
                     SALVAR
                 </HomeButton>
                 <HomeButton
