@@ -20,5 +20,6 @@ export const navigation_theme = {
     colors: {
         ...NavigationTheme.colors,
         ...paper_theme.colors,
+        background: colors.background,
     },
 }

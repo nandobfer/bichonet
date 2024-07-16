@@ -11,7 +11,12 @@ interface DefaultWrapperProps {
 
 export const DefaultWrapper: React.FC<DefaultWrapperProps> = ({ children }) => {
     return (
-        <View style={[{ flex: 1, backgroundColor: colors.background, overflow: "hidden" }, ORIENTATION == "desktop" && { paddingHorizontal: 600 }]}>
+        <View
+            style={[
+                { flex: 1, backgroundColor: colors.background, overflow: "hidden" },
+                ORIENTATION == "desktop" && { width: 600, alignSelf: "center" },
+            ]}
+        >
             <Header />
 
             {children}
