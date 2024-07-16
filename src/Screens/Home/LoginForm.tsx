@@ -8,6 +8,10 @@ import { colors } from "../../style/colors"
 import { HomeButton } from "./HomeButton"
 import { ORIENTATION } from "../../tools/orientation"
 import { useLinkTo } from "@react-navigation/native"
+import { LoginForm as LoginFormType } from "../../types/LoginForm"
+import { api } from "../../backend/api"
+import unmask from "../../tools/unmask"
+import { AxiosError } from "axios"
 
 interface LoginContainerProps {
     goBack: () => void
@@ -17,12 +21,29 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
     const linkTo = useLinkTo()
 
     const [showPassword, setShowPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
 
-    const formik = useFormik({
+    const formik = useFormik<LoginFormType>({
         initialValues: { phone: "", password: "" },
         async onSubmit(values, formikHelpers) {
+            if (loading) return
+            setLoading(true)
+
             console.log(values)
-            linkTo("/inicio")
+
+            try {
+                const response = await api.post("/auth", { ...values, phone: unmask(values.phone) })
+                console.log(response.data)
+                // linkTo("/inicio")
+            } catch (error) {
+                console.log(error)
+                if (error instanceof AxiosError && error.response?.status == 401) {
+                    formik.setFieldError("password", "Telefone ou senha inválidos")
+                    formik.setFieldError("phone", " ")
+                }
+            } finally {
+                setLoading(false)
+            }
         },
     })
 
@@ -69,7 +90,7 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
                 <HomeButton
                     style={[
                         { borderColor: ORIENTATION == "desktop" ? colors.background : colors.secondary, borderRadius: 100 },
-                        ORIENTATION == "desktop" && { flex: 0.25 },
+                        ORIENTATION == "desktop" && { flex: 0.25, minWidth: 150 },
                     ]}
                     mode="outlined"
                     buttonColor={ORIENTATION == "desktop" ? colors.secondary : colors.background}
@@ -79,9 +100,10 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
                     VOLTAR
                 </HomeButton>
                 <HomeButton
-                    style={[ORIENTATION == "desktop" && { flex: 0.25 }]}
+                    style={[ORIENTATION == "desktop" && { flex: 0.25, minWidth: 150 }]}
                     buttonColor={ORIENTATION == "desktop" ? colors.background : colors.primary}
                     onPress={() => formik.handleSubmit()}
+                    loading={loading}
                 >
                     ENTRAR
                 </HomeButton>
