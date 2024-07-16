@@ -63,7 +63,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                             onPress={handlePressPrize}
                         />
                     )}
-                    contentContainerStyle={[{ gap: 5 }]}
+                    contentContainerStyle={[{ gap: 5, flex: 1, justifyContent: "space-between" }]}
                 />
             </View>
         </DefaultWrapper>
