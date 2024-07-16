@@ -6,13 +6,19 @@ import { colors } from "../../style/colors"
 import { ORIENTATION } from "../../tools/orientation"
 import { useUser } from "../../hooks/useUser"
 import { useDrawer } from "../../hooks/useDrawer"
-import { useNavigation } from "@react-navigation/native"
+import { useLinkTo, useNavigation, useNavigationState } from "@react-navigation/native"
 
 interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = ({}) => {
     const navigation = useNavigation()
+    const navigationState = useNavigationState((state) => state)
+    const linkTo = useLinkTo()
     const { toggleDrawer } = useDrawer()
+
+    const onBackPress = () => {
+        navigationState.routes.length > 1 ? navigation.goBack() : linkTo("/")
+    }
 
     return (
         <View
@@ -22,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
             ]}
         >
             <IconButton
-                onPress={() => navigation.goBack()}
+                onPress={() => onBackPress()}
                 icon={"chevron-left-circle"}
                 iconColor={colors.secondary}
                 size={ORIENTATION == "desktop" ? 50 : 35}
