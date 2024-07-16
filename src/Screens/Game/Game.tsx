@@ -7,6 +7,8 @@ import { game_list } from "../GameList/game_list"
 import { colors } from "../../style/colors"
 import { PrizeComponent } from "./PrizeComponent"
 import { isPrizeSelected } from "../../tools/isPrizeSelected"
+import { ORIENTATION } from "../../tools/orientation"
+import { GameText } from "./GameText"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -50,7 +52,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     maxLength={game.max_chars}
                 />
 
-                <Text style={[{ color: colors.secondary, fontSize: 20 }]}>Selecione os prêmios:</Text>
+                <GameText>Selecione os prêmios:</GameText>
 
                 <FlatList
                     horizontal
@@ -65,6 +67,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     )}
                     contentContainerStyle={[{ gap: 5, flex: 1, justifyContent: "space-between" }]}
                 />
+
+                <GameText>Insira o valor da aposta:</GameText>
             </View>
         </DefaultWrapper>
     ) : null
