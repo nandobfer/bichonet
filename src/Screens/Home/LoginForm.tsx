@@ -13,7 +13,7 @@ interface LoginContainerProps {
     goBack: () => void
 }
 
-export const LoginContainer: React.FC<LoginContainerProps> = ({ goBack }) => {
+export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
     const linkTo = useLinkTo()
 
     const [showPassword, setShowPassword] = useState(false)

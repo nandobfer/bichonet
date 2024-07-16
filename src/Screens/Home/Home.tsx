@@ -8,7 +8,7 @@ import { SupportBanner } from "./SupportBanner"
 import { useLinkTo } from "@react-navigation/native"
 import { Logo } from "../../components/Logo"
 import { ORIENTATION } from "../../tools/orientation"
-import { LoginContainer } from "./LoginContainer"
+import { LoginForm } from "./LoginForm"
 import { Signup } from "../Signup/Signup"
 import { SignupForm } from "../Signup/SignupForm"
 
@@ -59,7 +59,7 @@ export const Home: React.FC<HomeProps> = ({}) => {
                 </View>
 
                 {loginForm ? (
-                    <LoginContainer goBack={() => setLoginForm(false)} />
+                    <LoginForm goBack={() => setLoginForm(false)} />
                 ) : signupForm ? (
                     <View>
                         <SignupForm goBack={() => setSignupForm(false)} />
