@@ -21,6 +21,7 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, se
                         backgroundColor: colors.secondary,
                         alignItems: "center",
                         padding: 20,
+                        paddingTop: 25,
                         borderRadius: 10,
                         borderBottomWidth: 5,
                         borderColor: colors.primary,
