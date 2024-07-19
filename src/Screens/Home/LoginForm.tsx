@@ -12,6 +12,7 @@ import { LoginForm as LoginFormType } from "../../types/LoginForm"
 import { api } from "../../backend/api"
 import unmask from "../../tools/unmask"
 import { AxiosError } from "axios"
+import { useUser } from "../../hooks/useUser"
 
 interface LoginContainerProps {
     goBack: () => void
@@ -20,11 +21,12 @@ interface LoginContainerProps {
 export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
     const linkTo = useLinkTo()
 
+    const { onLogin } = useUser()
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const formik = useFormik<LoginFormType>({
-        initialValues: { phone: "", password: "" },
+        initialValues: { username: "", password: "" },
         async onSubmit(values, formikHelpers) {
             if (loading) return
             setLoading(true)
@@ -32,9 +34,8 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
             console.log(values)
 
             try {
-                const response = await api.post("/auth", { ...values, phone: unmask(values.phone) })
-                console.log(response.data)
-                // linkTo("/inicio")
+                const response = await api.post("/auth", { ...values, username: unmask(values.username) })
+                onLogin(response.data)
             } catch (error) {
                 console.log(error)
                 if (error instanceof AxiosError && error.response?.status == 401) {
@@ -61,7 +62,7 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
             </Text>
             <SignupInput
                 formik={formik}
-                name="phone"
+                name="username"
                 label={"CELULAR"}
                 keyboardType="phone-pad"
                 maxLength={16}

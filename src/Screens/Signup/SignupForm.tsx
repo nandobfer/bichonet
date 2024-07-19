@@ -37,7 +37,10 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
 
             try {
                 const response = await api.post("/user", { ...values, phone: unmask(values.phone) })
-                console.log(response.data)
+                if (response.data) {
+                    const login_response = await api.post("/auth", { ...values, phone: unmask(values.phone) })
+                    console.log(login_response)
+                }
             } catch (error) {
                 console.log(error)
             } finally {

@@ -4,6 +4,7 @@ import { useLinkTo, useNavigation } from "@react-navigation/native"
 import { api } from "../backend/api"
 import { useKeepConnected } from "./useKeepConnected"
 import { User } from "../types/User"
+import { AuthResponse } from "../types/AuthResponse"
 
 export const useUser = () => {
     const context = useContext(UserContext)
@@ -11,9 +12,10 @@ export const useUser = () => {
     const linkTo = useLinkTo()
     const keepConnected = useKeepConnected()
 
-    const onLogin = (user: User, externalRoute?: { path: string; query: any }) => {
-        context.setUser(user)
-        linkTo("/selecionar-sistema")
+    const onLogin = (auth: AuthResponse, externalRoute?: { path: string; query: any }) => {
+        context.setUser(auth.user)
+        context.setAccessToken(auth.access_token)
+        linkTo("/inicio")
 
         if (externalRoute) {
             setTimeout(() => navigation.push(externalRoute.path, externalRoute.query), 200)
@@ -21,7 +23,6 @@ export const useUser = () => {
     }
 
     const logout = async () => {
-
         keepConnected.changeValue(false)
         context.setUser(null)
         linkTo("/")

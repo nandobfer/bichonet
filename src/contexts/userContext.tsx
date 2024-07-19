@@ -9,6 +9,8 @@ interface UserContextValue {
     expoPushToken: string
     setExpoPushToken: React.Dispatch<React.SetStateAction<string>>
     updateNotification: (notification: Notification) => void
+    accessToken: string
+    setAccessToken: React.Dispatch<React.SetStateAction<string>>
 }
 
 interface UserProviderProps {
@@ -22,6 +24,7 @@ export default UserContext
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null)
     const [expoPushToken, setExpoPushToken] = useState("")
+    const [accessToken, setAccessToken] = useState("")
 
     const updateNotification = (notification: Notification) => {
         // @ts-ignore
@@ -48,5 +51,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         saveLocally()
     }, [user])
 
-    return <UserContext.Provider value={{ user, setUser, expoPushToken, setExpoPushToken, updateNotification }}>{children}</UserContext.Provider>
+    return (
+        <UserContext.Provider value={{ user, setUser, expoPushToken, setExpoPushToken, updateNotification, accessToken, setAccessToken }}>
+            {children}
+        </UserContext.Provider>
+    )
 }
