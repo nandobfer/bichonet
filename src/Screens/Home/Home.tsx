@@ -68,7 +68,7 @@ export const Home: React.FC<HomeProps> = ({}) => {
                     <View style={[{ gap: 30 }, ORIENTATION == "desktop" && { marginTop: 90 }]}>
                         <HomeButton onPress={() => setLoginForm(true)}>ENTRAR</HomeButton>
                         <HomeButton onPress={() => setSignupForm(true)}>CADASTRAR</HomeButton>
-                        <HomeButton onPress={() => linkTo("/jogar")}>JOGAR SEM CADASTRO</HomeButton>
+                        <HomeButton onPress={() => linkTo("/inicio")}>JOGAR SEM CADASTRO</HomeButton>
                     </View>
                 )}
                 <SupportBanner />

@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
             <Logo size={ORIENTATION == "desktop" ? 125 : 75} />
             <IconButton
                 onPress={() => toggleDrawer()}
-                icon={"menu"}
+                icon={"cart"}
                 iconColor={colors.secondary}
                 size={ORIENTATION == "desktop" ? 50 : 35}
                 style={[{ margin: 0 }]}

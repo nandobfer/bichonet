@@ -60,14 +60,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
                         size={ORIENTATION == "desktop" ? 50 : 35}
                     />
 
-                    {!!bets.length && <CartComponent />}
-
-                    <View style={[{ gap: 30 }]}>
-                        <MenuButton>COTAÇÃO</MenuButton>
-                        <MenuButton>REGRAS</MenuButton>
-                        <MenuButton>RESULTADOS</MenuButton>
-                        <MenuButton>TABELA DOS BICHOS</MenuButton>
-                    </View>
+                    <CartComponent />
                 </Surface>
             </Animated.View>
         </>
