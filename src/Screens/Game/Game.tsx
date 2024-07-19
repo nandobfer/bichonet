@@ -151,6 +151,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         }
 
         addBet(bet)
+        resetGame()
+        fetchQuotes()
     }
 
     useEffect(() => {
