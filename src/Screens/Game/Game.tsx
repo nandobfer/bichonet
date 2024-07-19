@@ -158,6 +158,12 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     }, [betNumber, selectedPrizes, betValue])
 
     useEffect(() => {
+        if (betNumber.length === game?.max_chars) {
+            betValueInputRef.current?.focus()
+        }
+    }, [betNumber])
+
+    useEffect(() => {
         resetGame()
         if (game) {
             fetchQuotes()
