@@ -5,11 +5,14 @@ import { IconButton, Surface, Text } from "react-native-paper"
 import { MenuButton } from "./MenuButton"
 import { colors } from "../../style/colors"
 import { ORIENTATION } from "../../tools/orientation"
+import { useCart } from "../../hooks/useCart"
+import { CartComponent } from "../../components/Cart/CartComponent"
 
 interface DrawerProps {}
 
 export const Drawer: React.FC<DrawerProps> = ({}) => {
     const opacity = useRef(new Animated.Value(0)).current
+    const { bets } = useCart()
 
     const { width, translateX, toggleDrawer, menuDrawer } = useDrawer()
 
@@ -39,7 +42,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
             </Animated.View>
             <Animated.View
                 style={{
-                    width: width * (ORIENTATION == "desktop" ? 0.3 : 0.75),
+                    width: width * (ORIENTATION == "desktop" ? 0.25 : 0.75),
                     position: "absolute",
                     right: 0,
                     top: 0,
@@ -48,7 +51,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
                     flexDirection: "row-reverse",
                 }}
             >
-                <Surface elevation={5} style={[{ flex: 1, backgroundColor: colors.background, padding: 30, gap: 30 }]}>
+                <Surface elevation={5} style={[{ flex: 1, backgroundColor: colors.background, padding: 30 }]}>
                     <IconButton
                         onPress={() => toggleDrawer()}
                         icon={"close-circle"}
@@ -56,10 +59,15 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
                         iconColor={colors.secondary}
                         size={ORIENTATION == "desktop" ? 50 : 35}
                     />
-                    <MenuButton>COTAÇÃO</MenuButton>
-                    <MenuButton>REGRAS</MenuButton>
-                    <MenuButton>RESULTADOS</MenuButton>
-                    <MenuButton>TABELA DOS BICHOS</MenuButton>
+
+                    {!!bets.length && <CartComponent />}
+
+                    <View style={[{ gap: 30 }]}>
+                        <MenuButton>COTAÇÃO</MenuButton>
+                        <MenuButton>REGRAS</MenuButton>
+                        <MenuButton>RESULTADOS</MenuButton>
+                        <MenuButton>TABELA DOS BICHOS</MenuButton>
+                    </View>
                 </Surface>
             </Animated.View>
         </>

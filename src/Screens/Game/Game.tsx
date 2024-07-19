@@ -17,6 +17,9 @@ import { QuoteResponse } from "../../types/QuoteResponse"
 import { calculateQuote } from "../../tools/calculateQuote"
 import { BetKeyboard } from "./BetKeyboard"
 import { BetSubmitButton } from "./BetSubmitButton"
+import { useCart } from "../../hooks/useCart"
+import { BetForm } from "../../types/BetForm"
+import { BetItem } from "../../types/BetItem"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -28,6 +31,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     const betValueInputRef = useRef<TextInput>(null)
     const betNumberInputRef = useRef<TextInput>(null)
+    const { addBet } = useCart()
 
     const [betNumber, setBetNumber] = useState("")
     const [selectedPrizes, setSelectedPrizes] = useState<number[]>([])
@@ -137,7 +141,16 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     }
 
     const handleBetSubmit = () => {
-        if (!validateBet()) return
+        if (!validateBet() || !game) return
+
+        const bet: BetItem = {
+            betNumber,
+            betValue,
+            selectedPrizes,
+            game,
+        }
+
+        addBet(bet)
     }
 
     useEffect(() => {

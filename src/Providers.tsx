@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import constants from "expo-constants"
 import { DrawerProvider } from "./contexts/drawerContext"
 import { game_list } from "./Screens/GameList/game_list"
+import { CartProvider } from "./contexts/cartContext"
 
 interface ProvidersProps {
     children?: React.ReactNode
@@ -45,8 +46,10 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
             <PaperProvider theme={paper_theme}>
                 <UserProvider>
                     <DrawerProvider>
-                        {children}
-                        <Text style={{ position: "absolute", bottom: 5, right: 5, color: "red" }}>{constants.expoConfig?.version}</Text>
+                        <CartProvider>
+                            {children}
+                            <Text style={{ position: "absolute", bottom: 5, right: 5, color: "red" }}>{constants.expoConfig?.version}</Text>
+                        </CartProvider>
                     </DrawerProvider>
                 </UserProvider>
             </PaperProvider>
