@@ -115,7 +115,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
                 {!!quotes.length ? (
                     <GameText>
-                        Premiação:{" "}
+                        Premiação:{"  "}
                         <FlatList
                             horizontal
                             data={quotes}
@@ -124,8 +124,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                                     {currencyMask(calculateQuote(betValue, item.valor))}
                                 </GameText>
                             )}
-                            contentContainerStyle={[{ gap: 10, paddingVertical: 5 }]}
-                            ItemSeparatorComponent={() => <GameText style={{ marginLeft: 10 }}>e</GameText>}
+                            contentContainerStyle={[{ gap: 8, paddingVertical: 5 }]}
+                            ItemSeparatorComponent={() => <GameText style={{ marginLeft: 8 }}>e</GameText>}
                         />
                     </GameText>
                 ) : (
