@@ -15,6 +15,7 @@ import { BetInputButton } from "./BetInputButton"
 import { getQuotes } from "../../tools/getQuotes"
 import { QuoteResponse } from "../../types/QuoteResponse"
 import { calculateQuote } from "../../tools/calculateQuote"
+import { BetKeyboard } from "./BetKeyboard"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -63,6 +64,14 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         setBetValue(1)
         setSelectedPrizes(0)
     }
+
+    const onNumberPress = (digit: number) => {
+        setBetValue((value) => Number((value * 10 + digit / 100).toFixed(2)))
+    }
+    const onDeletePress = () => {
+        setBetValue((value) => Math.floor(value * 10) / 100)
+    }
+    const onConfirmPress = () => {}
 
     useEffect(() => {
         resetGame()
@@ -138,6 +147,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                 ) : (
                     <ActivityIndicator color={colors.success} />
                 )}
+
+                <BetKeyboard onNumberPress={onNumberPress} onConfirmPress={onConfirmPress} onDeletePress={onDeletePress} />
             </View>
         </DefaultWrapper>
     ) : null
