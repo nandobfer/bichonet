@@ -26,7 +26,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     const game = game_list.find((item) => item.path == game_type)
 
     const [betNumber, setBetNumber] = useState("")
-    const [selectedPrizes, setSelectedPrizes] = useState(0)
+    const [selectedPrizes, setSelectedPrizes] = useState<number[]>([])
     const [betValue, setBetValue] = useState(1)
     const [quotes, setQuotes] = useState<QuoteResponse[]>([])
 
@@ -37,10 +37,12 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         }
     }
 
-    const handlePressPrize = (prize_unix: number) => {
-        let current_prizes = selectedPrizes
-        const is_selected = isPrizeSelected(prize_unix, selectedPrizes)
-        setSelectedPrizes(is_selected ? (current_prizes -= prize_unix) : (current_prizes += prize_unix))
+    const handlePressPrize = (pressed_number: number) => {
+        if (selectedPrizes.includes(pressed_number)) {
+            setSelectedPrizes((value) => value.filter((item) => item !== pressed_number))
+        } else {
+            setSelectedPrizes((value) => [...value, pressed_number])
+        }
     }
 
     const handleBetValueSum = (sum: number) => {
@@ -62,7 +64,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         setQuotes([])
         setBetNumber("")
         setBetValue(1)
-        setSelectedPrizes(0)
+        setSelectedPrizes([])
     }
 
     const onNumberPress = (digit: number) => {
@@ -89,18 +91,21 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
                 <BetInput value={betNumber} onChangeText={handleChangeValue} keyboardType="number-pad" maxLength={game.max_chars} />
 
-                <GameText>Selecione os prêmios:</GameText>
+                <GameText>
+                    Selecione os prêmios:{" "}
+                    <GameText style={[{ color: colors.success, fontWeight: "bold" }]}>
+                        {selectedPrizes
+                            .sort((a, b) => a - b)
+                            .map((prize) => `${prize}º`)
+                            .join(", ")}
+                    </GameText>
+                </GameText>
 
                 <FlatList
                     horizontal
-                    data={new Array(game.prizes).fill(1).map((_, index) => Math.pow(2, index))}
-                    renderItem={({ item, index }) => (
-                        <PrizeComponent
-                            prize_number={index + 1}
-                            value={item}
-                            selected={isPrizeSelected(item, selectedPrizes)}
-                            onPress={handlePressPrize}
-                        />
+                    data={new Array(game.prizes).fill(1).map((_, index) => index + 1)}
+                    renderItem={({ item }) => (
+                        <PrizeComponent prize_number={item} selected={selectedPrizes.includes(item)} onPress={handlePressPrize} />
                     )}
                     contentContainerStyle={[{ gap: 5, flex: 1, justifyContent: "space-between" }]}
                 />

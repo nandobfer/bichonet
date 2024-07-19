@@ -8,12 +8,11 @@ interface PrizeComponentProps {
     prize_number: number
     selected: boolean
     onPress: (selected_number: number) => void
-    value: number
 }
 
-export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, selected, onPress, value }) => {
+export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, selected, onPress }) => {
     return (
-        <TouchableRipple onPress={() => onPress(value)} borderless style={[{ borderRadius: 10 }]}>
+        <TouchableRipple onPress={() => onPress(prize_number)} borderless style={[{ borderRadius: 10 }]}>
             <Surface
                 elevation={3}
                 style={[
