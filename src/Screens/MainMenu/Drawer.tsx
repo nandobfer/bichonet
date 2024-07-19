@@ -1,18 +1,15 @@
 import React, { useEffect, useRef } from "react"
-import { Animated, Pressable, View } from "react-native"
+import { Animated, Pressable } from "react-native"
 import { useDrawer } from "../../hooks/useDrawer"
-import { IconButton, Surface, Text } from "react-native-paper"
-import { MenuButton } from "./MenuButton"
+import { Surface } from "react-native-paper"
 import { colors } from "../../style/colors"
 import { ORIENTATION } from "../../tools/orientation"
-import { useCart } from "../../hooks/useCart"
 import { CartComponent } from "../../components/Cart/CartComponent"
 
 interface DrawerProps {}
 
 export const Drawer: React.FC<DrawerProps> = ({}) => {
     const opacity = useRef(new Animated.Value(0)).current
-    const { bets } = useCart()
 
     const { width, translateX, toggleDrawer, menuDrawer } = useDrawer()
 
@@ -52,14 +49,6 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
                 }}
             >
                 <Surface elevation={5} style={[{ flex: 1, backgroundColor: colors.background, padding: 30 }]}>
-                    <IconButton
-                        onPress={() => toggleDrawer()}
-                        icon={"close-circle"}
-                        style={[{ alignSelf: "flex-end", margin: 0 }]}
-                        iconColor={colors.secondary}
-                        size={ORIENTATION == "desktop" ? 50 : 35}
-                    />
-
                     <CartComponent />
                 </Surface>
             </Animated.View>

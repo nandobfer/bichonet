@@ -1,10 +1,12 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import React from "react"
 import { BetItem } from "../types/BetItem"
 
 interface CartContextValue {
     bets: BetItem[]
     setBets: React.Dispatch<React.SetStateAction<BetItem[]>>
+
+    total: number
 }
 
 interface CartProviderProps {
@@ -17,6 +19,11 @@ export default CartContext
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [bets, setBets] = useState<BetItem[]>([])
+    const [total, setTotal] = useState(0)
 
-    return <CartContext.Provider value={{ bets, setBets }}>{children}</CartContext.Provider>
+    useEffect(() => {
+        setTotal(bets.reduce((total, bet) => (total += bet.betValue), 0))
+    }, [bets])
+
+    return <CartContext.Provider value={{ bets, setBets, total }}>{children}</CartContext.Provider>
 }
