@@ -1,7 +1,7 @@
 import { RouteProp } from "@react-navigation/native"
-import React, { useEffect, useState } from "react"
-import { FlatList, ScrollView, View } from "react-native"
-import { ActivityIndicator, Button, Surface, Text, TextInput } from "react-native-paper"
+import React, { useEffect, useRef, useState } from "react"
+import { Animated, FlatList, Pressable, ScrollView, TextInput, View } from "react-native"
+import { ActivityIndicator, Button, Surface, Text, TouchableRipple } from "react-native-paper"
 import { DefaultWrapper } from "../../components/DefaultWrapper"
 import { game_list } from "../GameList/game_list"
 import { colors } from "../../style/colors"
@@ -16,6 +16,7 @@ import { getQuotes } from "../../tools/getQuotes"
 import { QuoteResponse } from "../../types/QuoteResponse"
 import { calculateQuote } from "../../tools/calculateQuote"
 import { BetKeyboard } from "./BetKeyboard"
+import { BetSubmitButton } from "./BetSubmitButton"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -25,10 +26,17 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     const game_type = route.params?.tipo
     const game = game_list.find((item) => item.path == game_type)
 
+    const betValueInputRef = useRef<TextInput>(null)
+    const betNumberInputRef = useRef<TextInput>(null)
+
     const [betNumber, setBetNumber] = useState("")
     const [selectedPrizes, setSelectedPrizes] = useState<number[]>([])
     const [betValue, setBetValue] = useState(0)
     const [quotes, setQuotes] = useState<QuoteResponse[]>([])
+
+    const [focusedInput, setFocusedInput] = useState<"betNumber" | "betValue">("betNumber")
+
+    const [submitionError, setSubmitionError] = useState("")
 
     const handleChangeValue = (typed: string) => {
         const numeric = typed.match(/\d/g)
@@ -68,12 +76,73 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     }
 
     const onNumberPress = (digit: number) => {
-        setBetValue((value) => Number((value * 10 + digit / 100).toFixed(2)))
+        if (!game) return
+
+        if (focusedInput == "betValue") {
+            setBetValue((value) => Number((value * 10 + digit / 100).toFixed(2)))
+            betValueInputRef.current?.focus()
+            return
+        }
+
+        if (focusedInput == "betNumber" && betNumber.length < game.max_chars) {
+            setBetNumber((value) => value + digit.toString())
+            betNumberInputRef.current?.focus()
+            return
+        }
     }
     const onDeletePress = () => {
-        setBetValue((value) => Math.floor(value * 10) / 100)
+        if (focusedInput == "betValue") {
+            setBetValue((value) => Math.floor(value * 10) / 100)
+            betValueInputRef.current?.focus()
+            return
+        }
+
+        if (focusedInput == "betNumber") {
+            setBetNumber((value) => value.slice(0, -1))
+            betNumberInputRef.current?.focus()
+            return
+        }
     }
-    const onConfirmPress = () => {}
+    const onConfirmPress = () => {
+        if (focusedInput == "betNumber") {
+            betValueInputRef.current?.focus()
+            return
+        }
+
+        if (focusedInput == "betValue") {
+            betValueInputRef.current?.blur()
+            return
+        }
+    }
+
+    const validateBet = () => {
+        if (!game) return
+
+        if (betNumber.length !== game.max_chars) {
+            setSubmitionError(`Preencha os números da aposta`)
+            return
+        }
+
+        if (selectedPrizes.length === 0) {
+            setSubmitionError("Selecione os prêmios")
+            return
+        }
+
+        if (betValue < 1) {
+            setSubmitionError("Valor mínimo: R$ 1,00")
+            return
+        }
+
+        return true
+    }
+
+    const handleBetSubmit = () => {
+        if (!validateBet()) return
+    }
+
+    useEffect(() => {
+        setSubmitionError("")
+    }, [betNumber, selectedPrizes, betValue])
 
     useEffect(() => {
         resetGame()
@@ -89,7 +158,14 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     <Text style={[{ fontSize: 20, fontWeight: "bold", color: colors.background }]}>{game.label}</Text>
                 </Surface>
 
-                <BetInput value={betNumber} onChangeText={handleChangeValue} keyboardType="number-pad" maxLength={game.max_chars} />
+                <BetInput
+                    ref={betNumberInputRef}
+                    value={betNumber}
+                    onChangeText={handleChangeValue}
+                    keyboardType="number-pad"
+                    maxLength={game.max_chars}
+                    onFocus={() => setFocusedInput("betNumber")}
+                />
 
                 <GameText>
                     Selecione os prêmios:{" "}
@@ -113,7 +189,13 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                 <GameText>Insira o valor da aposta:</GameText>
 
                 <View style={[{ position: "relative" }]}>
-                    <BetInput value={currencyMask(betValue)} onChangeText={handleChangeValue} readOnly small_number={ORIENTATION === "mobile"} />
+                    <BetInput
+                        ref={betValueInputRef}
+                        value={currencyMask(betValue)}
+                        onChangeText={handleChangeValue}
+                        small_number={ORIENTATION === "mobile"}
+                        onFocus={() => setFocusedInput("betValue")}
+                    />
                     <View
                         style={[
                             {
@@ -129,6 +211,10 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                             },
                         ]}
                     >
+                        <Pressable
+                            style={[{ position: "absolute", width: "100%", height: "100%", left: -10 }]}
+                            onPress={() => betValueInputRef.current?.focus()}
+                        />
                         <BetInputButton value={-1} onPress={handleBetValueSum} disabled={betValue === 0} />
                         <BetInputButton value={1} onPress={handleBetValueSum} />
                     </View>
@@ -155,15 +241,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
                 <BetKeyboard onNumberPress={onNumberPress} onConfirmPress={onConfirmPress} onDeletePress={onDeletePress} />
 
-                <Button
-                    mode="contained"
-                    buttonColor={colors.success}
-                    textColor={colors.background}
-                    labelStyle={[{ fontWeight: "bold", fontSize: 30, lineHeight: 40 }]}
-                    onPress={onConfirmPress}
-                >
-                    Apostar
-                </Button>
+                <BetSubmitButton onPress={handleBetSubmit} errorText={submitionError} />
             </ScrollView>
         </DefaultWrapper>
     ) : null
