@@ -1,7 +1,7 @@
 import { RouteProp } from "@react-navigation/native"
 import React, { useEffect, useState } from "react"
-import { FlatList, View } from "react-native"
-import { ActivityIndicator, Surface, Text, TextInput } from "react-native-paper"
+import { FlatList, ScrollView, View } from "react-native"
+import { ActivityIndicator, Button, Surface, Text, TextInput } from "react-native-paper"
 import { DefaultWrapper } from "../../components/DefaultWrapper"
 import { game_list } from "../GameList/game_list"
 import { colors } from "../../style/colors"
@@ -82,7 +82,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     return game ? (
         <DefaultWrapper>
-            <View style={[{ paddingHorizontal: 30, gap: 15 }]}>
+            <ScrollView style={[{ flex: 1 }]} contentContainerStyle={[{ paddingHorizontal: 30, gap: 15 }]}>
                 <Surface style={[{ backgroundColor: colors.primary, borderRadius: 15, justifyContent: "center", alignItems: "center", padding: 10 }]}>
                     <Text style={[{ fontSize: 20, fontWeight: "bold", color: colors.background }]}>{game.label}</Text>
                 </Surface>
@@ -149,7 +149,17 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                 )}
 
                 <BetKeyboard onNumberPress={onNumberPress} onConfirmPress={onConfirmPress} onDeletePress={onDeletePress} />
-            </View>
+
+                <Button
+                    mode="contained"
+                    buttonColor={colors.success}
+                    textColor={colors.background}
+                    labelStyle={[{ fontWeight: "bold", fontSize: 30, lineHeight: 40 }]}
+                    onPress={onConfirmPress}
+                >
+                    Apostar
+                </Button>
+            </ScrollView>
         </DefaultWrapper>
     ) : null
 }

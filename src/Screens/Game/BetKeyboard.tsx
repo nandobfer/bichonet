@@ -13,7 +13,7 @@ interface BetKeyboardProps {
 export const BetKeyboard: React.FC<BetKeyboardProps> = ({ onNumberPress, onDeletePress, onConfirmPress }) => {
     const keys = new Array(9).fill(1).map((_, index) => index + 1)
 
-    const keyboard_gap = 10
+    const keyboard_gap = 15
 
     return (
         <View style={[{ flexDirection: "row", gap: keyboard_gap, alignSelf: "center" }]}>
