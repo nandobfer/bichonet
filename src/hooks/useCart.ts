@@ -13,5 +13,9 @@ export const useCart = () => {
         toggleDrawer()
     }
 
-    return { ...cartContext, addBet }
+    const removeBet = (id: string) => {
+        cartContext.setBets((value) => value.filter((item) => item.id !== id))
+    }
+
+    return { ...cartContext, addBet, removeBet }
 }

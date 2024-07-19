@@ -20,6 +20,7 @@ import { BetSubmitButton } from "./BetSubmitButton"
 import { useCart } from "../../hooks/useCart"
 import { BetForm } from "../../types/BetForm"
 import { BetItem } from "../../types/BetItem"
+import { uniqueId } from "lodash"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -144,11 +145,14 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         if (!validateBet() || !game) return
 
         const bet: BetItem = {
+            id: uniqueId(),
             betNumber,
             betValue,
             selectedPrizes,
             game,
         }
+
+        console.log(bet)
 
         addBet(bet)
         resetGame()

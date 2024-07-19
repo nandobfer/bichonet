@@ -23,7 +23,7 @@ export const BettedGameComponent: React.FC<BettedGameComponentProps> = ({ game, 
             </Text>
             <View style={[{ gap: 5 }, ORIENTATION == "mobile" && { gap: 10 }]}>
                 {bets.map((bet, index) => (
-                    <BetComponent key={bet.betNumber + index.toString()} label={bet.betNumber} value={bet.betValue} />
+                    <BetComponent key={bet.betNumber + index.toString()} label={bet.betNumber} value={bet.betValue} id={bet.id} />
                 ))}
             </View>
         </View>
