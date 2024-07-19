@@ -21,10 +21,10 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, se
                         alignItems: "center",
                         padding: 13,
                         borderRadius: 10,
-                        borderBottomWidth: 5,
+                        borderBottomWidth: 3,
                         borderColor: colors.primary,
                     },
-                    ORIENTATION == "desktop" && { padding: 20, borderBottomWidth: 10 },
+                    ORIENTATION == "desktop" && { padding: 20, borderBottomWidth: 5 },
                     selected && { backgroundColor: colors.success, borderBottomColor: colors.success },
                 ]}
             >
