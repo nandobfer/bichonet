@@ -20,17 +20,16 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, se
                     {
                         backgroundColor: colors.secondary,
                         alignItems: "center",
-                        padding: 20,
-                        paddingTop: 25,
+                        padding: 13,
                         borderRadius: 10,
                         borderBottomWidth: 5,
                         borderColor: colors.primary,
                     },
-                    ORIENTATION == "desktop" && { padding: 30, borderBottomWidth: 10 },
+                    ORIENTATION == "desktop" && { padding: 20, borderBottomWidth: 10 },
                     selected && { backgroundColor: colors.success, borderBottomColor: colors.success },
                 ]}
             >
-                <Text style={[{ color: colors.background, fontSize: 30 }, ORIENTATION == "desktop" && { fontSize: 40 }]}>{prize_number}</Text>
+                <Text style={[{ color: colors.background, fontSize: 26 }, ORIENTATION == "desktop" && { fontSize: 30 }]}>{prize_number}º</Text>
             </Surface>
         </TouchableRipple>
     )
