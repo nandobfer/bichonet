@@ -16,7 +16,7 @@ export const BetKeyboard: React.FC<BetKeyboardProps> = ({ onNumberPress, onDelet
     const keyboard_gap = 15
 
     return (
-        <View style={[{ flexDirection: "row", gap: keyboard_gap, alignSelf: "center" }]}>
+        <View style={[{ flexDirection: "row", gap: keyboard_gap, alignSelf: "center", width: "100%" }]}>
             <View>
                 <FlatList
                     numColumns={3}
@@ -27,10 +27,10 @@ export const BetKeyboard: React.FC<BetKeyboardProps> = ({ onNumberPress, onDelet
                     columnWrapperStyle={[{ gap: keyboard_gap }]}
                 />
             </View>
-            <View style={[{ gap: keyboard_gap }]}>
-                <BetKeyboardButton onPress={onDeletePress} icon="alpha-x-circle" icon_color={colors.error} />
-                <BetKeyboardButton value={0} onPress={onNumberPress} />
-                <BetKeyboardButton onPress={onConfirmPress} icon="check-circle" icon_color={colors.success} />
+            <View style={[{ gap: keyboard_gap, flex: 1 }]}>
+                <BetKeyboardButton onPress={onDeletePress} icon="alpha-x-circle" icon_color={colors.error} fat />
+                <BetKeyboardButton value={0} onPress={onNumberPress} fat />
+                <BetKeyboardButton onPress={onConfirmPress} icon="check-circle" icon_color={colors.success} fat />
             </View>
         </View>
     )
