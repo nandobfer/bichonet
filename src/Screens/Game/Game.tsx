@@ -46,7 +46,10 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     }
 
     const handleBetValueSum = (sum: number) => {
-        if (betValue + sum < 1) return
+        if (betValue + sum < 1) {
+            setBetValue(1)
+            return
+        }
 
         setBetValue((value) => value + sum)
     }
