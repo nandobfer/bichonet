@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useEffect } from "react"
 import { View } from "react-native"
 import { colors } from "../../style/colors"
 import { Header } from "./Header"
@@ -8,7 +8,7 @@ import { MenuButton } from "./MenuButton"
 import { Text } from "react-native-paper"
 import { currencyMask } from "../../tools/currencyMask"
 import { ORIENTATION } from "../../tools/orientation"
-import { useLinkTo } from "@react-navigation/native"
+import { useFocusEffect, useLinkTo } from "@react-navigation/native"
 import { DefaultWrapper } from "../../components/DefaultWrapper"
 
 interface MainMenuProps {}
@@ -18,6 +18,15 @@ export const MainMenu: React.FC<MainMenuProps> = ({}) => {
     const { user } = useUser()
 
     const balance = 100
+
+    useFocusEffect(
+        useCallback(() => {
+            console.log(user)
+            if (!user) {
+                setTimeout(() => linkTo("/"), 0)
+            }
+        }, [user])
+    )
 
     return (
         <DefaultWrapper>

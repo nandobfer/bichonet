@@ -44,7 +44,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
 
     useEffect(() => {
-        fetchLocallySavedUser()
+        // fetchLocallySavedUser()
     }, [])
 
     useEffect(() => {
