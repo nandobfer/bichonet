@@ -35,7 +35,7 @@ export default function App() {
     }
 
     return (
-        <SafeAreaView onLayout={onLayoutRootView} style={[{ flex: 1, backgroundColor: colors.background }]}>
+        <SafeAreaView onLayout={onLayoutRootView} style={[{ flex: 1, backgroundColor: colors.background, position: "relative" }]}>
             <Providers>
                 <StatusBar animated translucent style={"dark"} />
                 <Routes />

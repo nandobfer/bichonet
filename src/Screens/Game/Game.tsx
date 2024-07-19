@@ -27,7 +27,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     const [betNumber, setBetNumber] = useState("")
     const [selectedPrizes, setSelectedPrizes] = useState<number[]>([])
-    const [betValue, setBetValue] = useState(1)
+    const [betValue, setBetValue] = useState(0)
     const [quotes, setQuotes] = useState<QuoteResponse[]>([])
 
     const handleChangeValue = (typed: string) => {
@@ -46,10 +46,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     }
 
     const handleBetValueSum = (sum: number) => {
-        if (betValue + sum < 1) {
-            setBetValue(1)
-            return
-        }
+        if (betValue + sum < 0) return
 
         setBetValue((value) => value + sum)
     }
@@ -66,7 +63,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     const resetGame = () => {
         setQuotes([])
         setBetNumber("")
-        setBetValue(1)
+        setBetValue(0)
         setSelectedPrizes([])
     }
 
@@ -132,8 +129,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                             },
                         ]}
                     >
-                        <BetInputButton value={-100} onPress={handleBetValueSum} disabled={betValue === 1} />
-                        <BetInputButton value={100} onPress={handleBetValueSum} />
+                        <BetInputButton value={-1} onPress={handleBetValueSum} disabled={betValue === 0} />
+                        <BetInputButton value={1} onPress={handleBetValueSum} />
                     </View>
                 </View>
 

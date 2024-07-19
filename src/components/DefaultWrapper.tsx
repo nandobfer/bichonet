@@ -14,7 +14,7 @@ export const DefaultWrapper: React.FC<DefaultWrapperProps> = ({ children }) => {
         <View
             style={[
                 { flex: 1, backgroundColor: colors.background, overflow: "hidden" },
-                ORIENTATION == "desktop" && { width: 600, alignSelf: "center" },
+                ORIENTATION == "desktop" && { width: 600, alignSelf: "center", position: "static" },
             ]}
         >
             <Header />
