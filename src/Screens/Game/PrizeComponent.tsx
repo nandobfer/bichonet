@@ -28,7 +28,10 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, se
                     selected && { backgroundColor: colors.success, borderBottomColor: colors.success },
                 ]}
             >
-                <Text style={[{ color: colors.background, fontSize: 26, fontWeight: "bold" }, ORIENTATION == "desktop" && { fontSize: 30 }]}>
+                <Text
+                    style={[{ color: colors.background, fontSize: 26, fontWeight: "bold" }, ORIENTATION == "desktop" && { fontSize: 30 }]}
+                    selectable={false}
+                >
                     {prize_number}º
                 </Text>
             </Surface>
