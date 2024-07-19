@@ -82,9 +82,9 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     return game ? (
         <DefaultWrapper>
-            <View style={[{ paddingHorizontal: 30, gap: 20 }]}>
+            <View style={[{ paddingHorizontal: 30, gap: 15 }]}>
                 <Surface style={[{ backgroundColor: colors.primary, borderRadius: 15, justifyContent: "center", alignItems: "center", padding: 10 }]}>
-                    <Text style={[{ fontSize: 30, fontWeight: "bold", color: colors.background }]}>{game.label}</Text>
+                    <Text style={[{ fontSize: 20, fontWeight: "bold", color: colors.background }]}>{game.label}</Text>
                 </Surface>
 
                 <BetInput value={betNumber} onChangeText={handleChangeValue} keyboardType="number-pad" maxLength={game.max_chars} />
@@ -113,14 +113,14 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                         style={[
                             {
                                 position: "absolute",
-                                left: 15,
+                                left: 10,
                                 flexDirection: "row",
                                 gap: 5,
                                 height: "100%",
                                 alignItems: "center",
                                 width: "100%",
                                 justifyContent: "space-between",
-                                paddingRight: 30,
+                                paddingRight: 20,
                             },
                         ]}
                     >

@@ -13,11 +13,11 @@ export const BetInput: React.FC<BetInputProps> = (props) => {
             {...props}
             outlineStyle={[{ borderRadius: 15 }, props.outlineStyle]}
             contentStyle={[
-                { textAlign: "center", fontSize: 40, fontWeight: "bold", color: colors.background },
+                { textAlign: "center", fontSize: 35, fontWeight: "bold", color: colors.background },
                 props.small_number && { fontSize: 28 },
                 props.contentStyle,
             ]}
-            style={[{ padding: 10 }, props.style]}
+            style={[props.style]}
         />
     )
 }
