@@ -18,7 +18,7 @@ export const BetComponent: React.FC<BetComponentProps> = ({ label, value, bold, 
     const { removeBet } = useCart()
 
     return (
-        <View style={[{ flex: 1, flexDirection: "row", gap: 10 }]}>
+        <View style={[{ flex: 1, flexDirection: "row", gap: 10, alignItems: "flex-end" }]}>
             <GameText style={[bold && { fontWeight: "bold" }]}>{label}</GameText>
             <View style={[{ flex: 1, borderBottomColor: colors.secondary, borderBottomWidth: 2, borderStyle: "dashed" }]} />
             <GameText style={[bold && { fontWeight: "bold" }]}>{currencyMask(value)}</GameText>
