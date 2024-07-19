@@ -28,7 +28,7 @@ export const BetKeyboard: React.FC<BetKeyboardProps> = ({ onNumberPress, onDelet
                 />
             </View>
             <View style={[{ gap: keyboard_gap, flex: 1 }]}>
-                <BetKeyboardButton onPress={onDeletePress} icon="alpha-x-circle" icon_color={colors.error} fat />
+                <BetKeyboardButton onPress={onDeletePress} icon="close-circle" icon_color={colors.error} fat />
                 <BetKeyboardButton value={0} onPress={onNumberPress} fat />
                 <BetKeyboardButton onPress={onConfirmPress} icon="check-circle" icon_color={colors.success} fat />
             </View>
