@@ -26,7 +26,6 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     const [betNumber, setBetNumber] = useState("")
     const [selectedPrizes, setSelectedPrizes] = useState(0)
-
     const [betValue, setBetValue] = useState(1)
     const [quotes, setQuotes] = useState<QuoteResponse[]>([])
 
@@ -58,11 +57,19 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         }
     }
 
+    const resetGame = () => {
+        setQuotes([])
+        setBetNumber("")
+        setBetValue(1)
+        setSelectedPrizes(0)
+    }
+
     useEffect(() => {
+        resetGame()
         if (game) {
             fetchQuotes()
         }
-    }, [game?.type])
+    }, [game])
 
     return game ? (
         <DefaultWrapper>
