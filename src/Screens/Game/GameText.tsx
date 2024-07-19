@@ -7,5 +7,10 @@ import { ORIENTATION } from "../../tools/orientation"
 interface GameTextProps {}
 
 export const GameText: React.FC<TextProps<MD3TypescaleKey>> = (props) => {
-    return <Text {...props} style={[{ color: colors.secondary, fontSize: 20 }, ORIENTATION == "desktop" && { fontSize: 26 }, props.style]} />
+    return (
+        <Text
+            {...props}
+            style={[{ color: colors.secondary, fontSize: 16, marginVertical: -5 }, ORIENTATION == "desktop" && { fontSize: 24 }, props.style]}
+        />
+    )
 }

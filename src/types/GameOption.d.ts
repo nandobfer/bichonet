@@ -4,4 +4,5 @@ export interface GameOption {
     secondary_label?: string
     max_chars: number
     prizes: number
+    type: number
 }
