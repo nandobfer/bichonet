@@ -240,8 +240,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                             style={[{ position: "absolute", width: "100%", height: "100%", left: -10 }]}
                             onPress={() => betValueInputRef.current?.focus()}
                         />
-                        <BetInputButton value={-1} onPress={handleBetValueSum} disabled={betValue === 0} />
-                        <BetInputButton value={1} onPress={handleBetValueSum} />
+                        <BetInputButton value={-0.5} onPress={handleBetValueSum} disabled={betValue === 0} />
+                        <BetInputButton value={0.5} onPress={handleBetValueSum} />
                     </View>
                 </View>
 
