@@ -62,7 +62,7 @@ export const CartComponent: React.FC<CartComponentProps> = ({}) => {
                 setLoading(false)
             }
         },
-        // validationSchema: bet_schema,
+        validationSchema: bet_schema,
         validateOnChange: false,
         enableReinitialize: true,
     })
