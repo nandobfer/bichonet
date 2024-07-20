@@ -39,7 +39,7 @@ export const CartComponent: React.FC<CartComponentProps> = ({}) => {
             nome: user?.name || "",
             phone: user?.phone || "",
             tipoPayment: 0,
-            turnos: [],
+            turnos: [0],
         },
         async onSubmit(values, formikHelpers) {
             if (loading) return
