@@ -67,8 +67,8 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
                 keyboardType="phone-pad"
                 maxLength={16}
                 mask={"(99) 9 9999-9999"}
-                ref={input_refs[1]}
-                onSubmitEditing={() => focusInput(2, input_refs)}
+                ref={input_refs[0]}
+                onSubmitEditing={() => focusInput(1, input_refs)}
             />
             <SignupInput
                 formik={formik}
@@ -82,7 +82,7 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
                         onPress={() => setShowPassword((value) => !value)}
                     />
                 }
-                ref={input_refs[2]}
+                ref={input_refs[1]}
                 onSubmitEditing={() => formik.handleSubmit()}
                 returnKeyType="done"
             />
