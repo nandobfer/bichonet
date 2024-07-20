@@ -37,6 +37,7 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
                         mainmenu: "inicio",
                         gamelist: "jogar",
                         game: "jogo",
+                        quotations: "cotacoes",
                         notfound: "*",
                     },
                 },

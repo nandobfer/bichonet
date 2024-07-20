@@ -7,6 +7,7 @@ import { Signup } from "./Screens/Signup/Signup"
 import { MainMenu } from "./Screens/MainMenu/MainMenu"
 import { GameList } from "./Screens/GameList/GameList"
 import { Game } from "./Screens/Game/Game"
+import { QuotationsPage } from "./Screens/InfoPage/QuotationPage/QuotationsPage"
 
 interface RoutesProps {}
 
@@ -16,6 +17,7 @@ export type HomeStackParams = {
     mainmenu: undefined
     gamelist: undefined
     notfound: undefined
+    quotations: undefined
     game: undefined
 }
 
@@ -35,6 +37,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
             <Stack.Screen name="mainmenu" component={MainMenu} />
             <Stack.Screen name="gamelist" component={GameList} />
             <Stack.Screen name="game" component={Game} />
+            <Stack.Screen name="quotations" component={QuotationsPage} />
             <Stack.Screen name="notfound" component={NotFound} />
         </Stack.Navigator>
     )

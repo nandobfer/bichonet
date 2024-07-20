@@ -1,10 +1,12 @@
 import { api } from "../backend/api"
 import { QuoteResponse } from "../types/QuoteResponse"
 
-export const getQuotes = async (game_type: number) => {
+export const getQuotes = async (game_type?: number) => {
     try {
         const response = await api.get("/cotacao/public/getall")
         const quotes = response.data as QuoteResponse[]
+
+        if (!game_type) return quotes
 
         // todo: "tem um terno que tem duas cotações mas eu tenho que ver ainda"
 
