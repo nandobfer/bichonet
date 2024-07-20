@@ -15,7 +15,7 @@ export const InfoPage: React.FC<InfoPageProps> = ({}) => {
         <DefaultMenuWrapper>
             {!user && <MenuButton onPress={() => linkTo("/jogar")}>JOGAR</MenuButton>}
             <MenuButton onPress={() => linkTo("/cotacoes")}>COTAÇÃO</MenuButton>
-            <MenuButton>REGRAS</MenuButton>
+            <MenuButton onPress={() => linkTo("/regras")}>REGRAS</MenuButton>
             <MenuButton>RESULTADOS</MenuButton>
             <MenuButton>TABELA DOS BICHOS</MenuButton>
         </DefaultMenuWrapper>
