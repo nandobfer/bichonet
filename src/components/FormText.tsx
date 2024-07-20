@@ -14,6 +14,7 @@ export interface FormTextProps extends TextInputProps {
     mask?: string | string[]
     formik: {
         values: any
+        initialValues: any
         errors: FormikErrors<any>
         touched: FormikTouched<any>
         handleChange: (e: React.ChangeEvent<any>) => void

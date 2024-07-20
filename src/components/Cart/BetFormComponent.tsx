@@ -2,10 +2,13 @@ import React, { useRef } from "react"
 import { TextInput, View } from "react-native"
 import { BetForm } from "../../types/BetForm"
 import { FormikErrors, FormikTouched } from "formik"
-import { FormText } from "../FormText"
+import { FormText, FormTextProps } from "../FormText"
 import { SignupInput } from "../../Screens/Signup/SignupInput"
 import { colors } from "../../style/colors"
 import { focusInput } from "../../tools/focusInput"
+import { GameText } from "../../Screens/Game/GameText"
+import lodash from "lodash"
+import { mask } from "react-native-mask-text"
 
 interface BetFormProps {
     formik: {
@@ -22,12 +25,17 @@ interface BetFormProps {
     }
 }
 
+const TextOrInput = React.forwardRef<React.ElementRef<typeof TextInput>, FormTextProps>((props, ref) => {
+    const initialValue = lodash.get(props.formik.initialValues, props.name) as string | undefined
+    return initialValue ? <GameText>{props.mask ? mask(initialValue, props.mask) : initialValue}</GameText> : <SignupInput {...props} ref={ref} />
+})
+
 export const BetFormComponent: React.FC<BetFormProps> = ({ formik }) => {
     const refs = new Array(3).map(([key, value]) => useRef<TextInput>(null))
 
     return (
         <View style={[{ gap: 15 }]}>
-            <SignupInput
+            <TextOrInput
                 ref={refs[0]}
                 formik={formik}
                 name="nome"
@@ -36,7 +44,7 @@ export const BetFormComponent: React.FC<BetFormProps> = ({ formik }) => {
                 onSubmitEditing={() => focusInput(1, refs)}
                 disabled={!!formik.initialValues.nome}
             />
-            <SignupInput
+            <TextOrInput
                 ref={refs[1]}
                 formik={formik}
                 name="cpf"
@@ -46,7 +54,7 @@ export const BetFormComponent: React.FC<BetFormProps> = ({ formik }) => {
                 mask={"999.999.999-99"}
                 disabled={!!formik.initialValues.cpf}
             />
-            <SignupInput
+            <TextOrInput
                 ref={refs[2]}
                 formik={formik}
                 name="phone"
