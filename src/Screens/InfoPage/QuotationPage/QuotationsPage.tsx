@@ -39,7 +39,7 @@ export const QuotationsPage: React.FC<QuotationsPageProps> = ({}) => {
                 <FlatList
                     data={quotes}
                     renderItem={({ item }) => <QuoteComponent quote={item} />}
-                    contentContainerStyle={[{ gap: 10 }, ORIENTATION === "mobile" && { paddingVertical: 10, gap: 15 }]}
+                    contentContainerStyle={[{ gap: 30, paddingVertical: 10 }, ORIENTATION === "mobile" && { gap: 30 }]}
                 />
             </View>
         </DefaultWrapper>
