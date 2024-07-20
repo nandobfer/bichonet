@@ -17,7 +17,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
         Animated.timing(opacity, {
             toValue: menuDrawer ? 0.5 : 0,
             duration: 300,
-            useNativeDriver: true,
+            useNativeDriver: false,
         }).start()
     }, [menuDrawer])
 

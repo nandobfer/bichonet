@@ -9,7 +9,6 @@ interface SignupInputProps {}
 export const SignupInput = React.forwardRef<React.ElementRef<typeof TextInput>, FormTextProps>((props, ref) => {
     return (
         <FormText
-            {...props}
             ref={ref}
             transparent={false}
             color={ORIENTATION == "desktop" ? colors.background : colors.secondary}
@@ -17,6 +16,7 @@ export const SignupInput = React.forwardRef<React.ElementRef<typeof TextInput>, 
             style={{ backgroundColor: colors.secondary }}
             outlineStyle={{ borderRadius: 100 }}
             labelBold
+            {...props}
         />
     )
 })

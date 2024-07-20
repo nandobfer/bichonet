@@ -43,7 +43,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     const [submitionError, setSubmitionError] = useState("")
 
-    const handleChangeValue = (typed: string) => {
+    const handleChangeNumber = (typed: string) => {
         const numeric = typed.match(/\d/g)
         if (numeric?.length == typed.length || !typed) {
             setBetNumber(typed)
@@ -186,7 +186,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                 <BetInput
                     ref={betNumberInputRef}
                     value={betNumber}
-                    onChangeText={handleChangeValue}
+                    onChangeText={handleChangeNumber}
                     keyboardType="number-pad"
                     maxLength={game.max_chars}
                     onFocus={() => setFocusedInput("betNumber")}
@@ -217,7 +217,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     <BetInput
                         ref={betValueInputRef}
                         value={currencyMask(betValue)}
-                        onChangeText={handleChangeValue}
+                        onChangeText={handleChangeNumber}
                         small_number={ORIENTATION === "mobile"}
                         onFocus={() => setFocusedInput("betValue")}
                     />

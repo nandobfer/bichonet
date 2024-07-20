@@ -31,7 +31,7 @@ export const DrawerProvider: React.FC<DrawerProviderProps> = ({ children }) => {
         Animated.timing(translateX, {
             toValue: menuDrawer ? width : 0,
             duration: 300,
-            useNativeDriver: true,
+            useNativeDriver: false,
         }).start()
         setMenuDrawer((value) => !value)
     }
