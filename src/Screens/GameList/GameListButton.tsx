@@ -33,6 +33,7 @@ export const GameListButton: React.FC<GameListButtonProps> = ({ option }) => {
         >
             <>
                 <Text
+                    selectable={false}
                     style={[
                         { fontWeight: "bold", fontSize: 16, textAlign: "center", color: colors.background },
                         ORIENTATION == "desktop" && { fontSize: 22 },
