@@ -6,7 +6,7 @@ export const getQuotes = async (game_type?: number) => {
         const response = await api.get("/cotacao/public/getall")
         const quotes = response.data as QuoteResponse[]
 
-        if (!game_type) return quotes
+        if (game_type === undefined) return quotes
 
         // todo: "tem um terno que tem duas cotações mas eu tenho que ver ainda"
 
