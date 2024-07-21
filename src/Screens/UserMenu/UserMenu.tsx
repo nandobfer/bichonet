@@ -12,7 +12,7 @@ interface UserMenuProps {}
 
 export const UserMenu: React.FC<UserMenuProps> = ({}) => {
     const linkTo = useLinkTo()
-    const balance = 100
+    const balance = 1000
 
     return (
         <DefaultMenuWrapper>
