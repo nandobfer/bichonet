@@ -6,6 +6,7 @@ import { currencyMask } from "../../tools/currencyMask"
 import { MenuButton } from "../MainMenu/MenuButton"
 import { useLinkTo } from "@react-navigation/native"
 import { DefaultMenuWrapper } from "../../components/DefaultMenuWrapper"
+import { MyLink } from "./MyLink"
 
 interface UserMenuProps {}
 
@@ -22,7 +23,8 @@ export const UserMenu: React.FC<UserMenuProps> = ({}) => {
             <MenuButton onPress={() => linkTo("/jogar")}>JOGAR</MenuButton>
             <MenuButton>VER MEU JOGO</MenuButton>
             <MenuButton onPress={() => linkTo("/carteira")}>CARTEIRA</MenuButton>
-            <MenuButton>MEU LINK</MenuButton>
+
+            <MyLink />
         </DefaultMenuWrapper>
     )
 }

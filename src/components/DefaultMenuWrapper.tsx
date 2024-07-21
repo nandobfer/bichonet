@@ -6,5 +6,5 @@ interface DefaultMenuWrapperProps {
 }
 
 export const DefaultMenuWrapper: React.FC<DefaultMenuWrapperProps> = ({ children }) => {
-    return <View style={[{ paddingHorizontal: 30, gap: 20 }]}>{children}</View>
+    return <View style={[{ paddingHorizontal: 30, gap: 20, flex: 1 }]}>{children}</View>
 }
