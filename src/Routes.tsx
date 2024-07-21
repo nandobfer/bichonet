@@ -9,6 +9,7 @@ import { GameList } from "./Screens/GameList/GameList"
 import { Game } from "./Screens/Game/Game"
 import { QuotationsPage } from "./Screens/InfoPage/QuotationPage/QuotationsPage"
 import { RulesPage } from "./Screens/InfoPage/RulesPage/RulesPage"
+import { Wallet } from "./Screens/Wallet/Wallet"
 
 interface RoutesProps {}
 
@@ -20,6 +21,7 @@ export type HomeStackParams = {
     notfound: undefined
     quotations: undefined
     game: undefined
+    wallet: undefined
     rules: undefined
 }
 
@@ -41,6 +43,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
             <Stack.Screen name="game" component={Game} />
             <Stack.Screen name="quotations" component={QuotationsPage} />
             <Stack.Screen name="rules" component={RulesPage} />
+            <Stack.Screen name="wallet" component={Wallet} />
             <Stack.Screen name="notfound" component={NotFound} />
         </Stack.Navigator>
     )

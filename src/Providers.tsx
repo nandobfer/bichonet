@@ -39,6 +39,7 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
                         game: "jogo",
                         quotations: "cotacoes",
                         rules: "regras",
+                        wallet: "carteira",
                         notfound: "*",
                     },
                 },

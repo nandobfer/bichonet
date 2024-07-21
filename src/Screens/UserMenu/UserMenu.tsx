@@ -21,7 +21,7 @@ export const UserMenu: React.FC<UserMenuProps> = ({}) => {
 
             <MenuButton onPress={() => linkTo("/jogar")}>JOGAR</MenuButton>
             <MenuButton>VER MEU JOGO</MenuButton>
-            <MenuButton>CARTEIRA</MenuButton>
+            <MenuButton onPress={() => linkTo("/carteira")}>CARTEIRA</MenuButton>
             <MenuButton>MEU LINK</MenuButton>
         </DefaultMenuWrapper>
     )
