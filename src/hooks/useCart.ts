@@ -8,8 +8,8 @@ export const useCart = () => {
     const cartContext = useContext(CartContext)
     const { toggleDrawer } = useDrawer()
 
-    const addBet = (bet: BetItem) => {
-        cartContext.setBets((value) => [...value, bet])
+    const addBet = (bets: BetItem[]) => {
+        cartContext.setBets((value) => [...value, ...bets])
         toggleDrawer()
     }
 

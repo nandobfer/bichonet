@@ -22,7 +22,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
-        setTotal(bets.reduce((total, bet) => (total += bet.betValue), 0))
+        setTotal(bets.reduce((total, bet) => (total += bet.betValue * bet.selectedPrizes.length), 0))
     }, [bets])
 
     return <CartContext.Provider value={{ bets, setBets, total }}>{children}</CartContext.Provider>

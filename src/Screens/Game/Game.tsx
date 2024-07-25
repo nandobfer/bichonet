@@ -21,6 +21,7 @@ import { useCart } from "../../hooks/useCart"
 import { BetForm } from "../../types/BetForm"
 import { BetItem } from "../../types/BetItem"
 import { uniqueId } from "lodash"
+import { BetNumberChip } from "./BetNumberChip"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -32,9 +33,11 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     const betValueInputRef = useRef<TextInput>(null)
     const betNumberInputRef = useRef<TextInput>(null)
+
     const { addBet } = useCart()
 
     const [betNumber, setBetNumber] = useState("")
+    const [bets, setBets] = useState<string[]>([])
     const [selectedPrizes, setSelectedPrizes] = useState<number[]>([1])
     const [betValue, setBetValue] = useState(0)
     const [quotes, setQuotes] = useState<QuoteResponse[]>([])
@@ -73,7 +76,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         setQuotes([])
         setBetNumber("")
         setBetValue(0)
-        setSelectedPrizes([1])
+        setBets([])
+        setSelectedPrizes([])
     }
 
     const onNumberPress = (digit: number) => {
@@ -106,7 +110,10 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     }
     const onConfirmPress = () => {
         if (focusedInput == "betNumber") {
-            betValueInputRef.current?.focus()
+            if (betNumber.length !== game?.max_chars) return
+            setBets((value) => [...value.filter((item) => item !== betNumber), betNumber])
+            setBetNumber("")
+            betNumberInputRef.current?.focus()
             return
         }
 
@@ -116,10 +123,14 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         }
     }
 
+    const onDeleteBetNumber = (value: string) => {
+        setBets((values) => values.filter((item) => item !== value))
+    }
+
     const validateBet = () => {
         if (!game) return
 
-        if (betNumber.length !== game.max_chars) {
+        if (bets.length === 0) {
             setSubmitionError(`Preencha os números da aposta`)
             return
         }
@@ -140,17 +151,9 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     const handleBetSubmit = () => {
         if (!validateBet() || !game) return
 
-        const bet: BetItem = {
-            id: uniqueId(),
-            betNumber,
-            betValue,
-            selectedPrizes,
-            game,
-        }
+        const items: BetItem[] = bets.map((item) => ({ id: uniqueId(), betNumber: item, betValue, selectedPrizes, game }))
 
-        console.log(bet)
-
-        addBet(bet)
+        addBet(items)
         resetGame()
         fetchQuotes()
     }
@@ -161,7 +164,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     useEffect(() => {
         if (betNumber.length === game?.max_chars) {
-            betValueInputRef.current?.focus()
+            // betValueInputRef.current?.focus()
         }
     }, [betNumber])
 
@@ -186,6 +189,16 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     keyboardType="number-pad"
                     maxLength={game.max_chars}
                     onFocus={() => setFocusedInput("betNumber")}
+                    onSubmitEditing={onConfirmPress}
+                />
+
+                <FlatList
+                    data={bets}
+                    renderItem={({ item }) => <BetNumberChip value={item} onDelete={onDeleteBetNumber} />}
+                    ListEmptyComponent={<View style={[{ height: 32 }]} />}
+                    horizontal
+                    style={[{ marginHorizontal: -30 }]}
+                    contentContainerStyle={[{ paddingHorizontal: 30, gap: 15 }, ORIENTATION === "mobile" && { paddingVertical: 0 }]}
                 />
 
                 <GameText>
