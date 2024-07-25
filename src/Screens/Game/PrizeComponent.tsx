@@ -5,18 +5,20 @@ import { colors } from "../../style/colors"
 import { ORIENTATION } from "../../tools/orientation"
 
 interface PrizeComponentProps {
-    prize_number: number
+    prize_numbers: number[]
+    label: string
     selected: boolean
-    onPress: (selected_number: number) => void
+    onPress: (selected_numbers: number[]) => void
 }
 
-export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, selected, onPress }) => {
+export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_numbers, selected, onPress, label }) => {
     return (
-        <TouchableRipple onPress={() => onPress(prize_number)} borderless style={[{ borderRadius: 10 }]}>
+        <TouchableRipple onPress={() => onPress(prize_numbers)} borderless style={[{ borderRadius: 10, flex: 1 }]}>
             <Surface
                 elevation={3}
                 style={[
                     {
+                        flex: 1,
                         backgroundColor: colors.secondary,
                         alignItems: "center",
                         padding: 13,
@@ -24,7 +26,7 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, se
                         borderBottomWidth: 3,
                         borderColor: colors.primary,
                     },
-                    ORIENTATION == "desktop" && { padding: 20, borderBottomWidth: 5 },
+                    ORIENTATION == "desktop" && { padding: 15, borderBottomWidth: 5 },
                     selected && { backgroundColor: colors.success, borderBottomColor: colors.success },
                 ]}
             >
@@ -32,7 +34,7 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_number, se
                     style={[{ color: colors.background, fontSize: 26, fontWeight: "bold" }, ORIENTATION == "desktop" && { fontSize: 30 }]}
                     selectable={false}
                 >
-                    {prize_number}º
+                    {label}
                 </Text>
             </Surface>
         </TouchableRipple>

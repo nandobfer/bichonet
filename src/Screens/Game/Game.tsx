@@ -35,7 +35,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     const { addBet } = useCart()
 
     const [betNumber, setBetNumber] = useState("")
-    const [selectedPrizes, setSelectedPrizes] = useState<number[]>([])
+    const [selectedPrizes, setSelectedPrizes] = useState<number[]>([1])
     const [betValue, setBetValue] = useState(0)
     const [quotes, setQuotes] = useState<QuoteResponse[]>([])
 
@@ -50,12 +50,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         }
     }
 
-    const handlePressPrize = (pressed_number: number) => {
-        if (selectedPrizes.includes(pressed_number)) {
-            setSelectedPrizes((value) => value.filter((item) => item !== pressed_number))
-        } else {
-            setSelectedPrizes((value) => [...value, pressed_number])
-        }
+    const handlePressPrize = (value: number[]) => {
+        setSelectedPrizes(value)
     }
 
     const handleBetValueSum = (sum: number) => {
@@ -77,7 +73,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         setQuotes([])
         setBetNumber("")
         setBetValue(0)
-        setSelectedPrizes([])
+        setSelectedPrizes([1])
     }
 
     const onNumberPress = (digit: number) => {
@@ -202,14 +198,15 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     </GameText>
                 </GameText>
 
-                <FlatList
-                    horizontal
-                    data={new Array(game.prizes).fill(1).map((_, index) => index + 1)}
-                    renderItem={({ item }) => (
-                        <PrizeComponent prize_number={item} selected={selectedPrizes.includes(item)} onPress={handlePressPrize} />
-                    )}
-                    contentContainerStyle={[{ gap: 5, flex: 1, justifyContent: "space-between" }]}
-                />
+                <View style={[{ flexDirection: "row", gap: 15 }]}>
+                    <PrizeComponent label="1º" prize_numbers={[1]} selected={selectedPrizes.length === 1} onPress={handlePressPrize} />
+                    <PrizeComponent
+                        label="1º ao 5º"
+                        prize_numbers={[1, 2, 3, 4, 5]}
+                        selected={selectedPrizes.length === 5}
+                        onPress={handlePressPrize}
+                    />
+                </View>
 
                 <GameText>Insira o valor da aposta:</GameText>
 
