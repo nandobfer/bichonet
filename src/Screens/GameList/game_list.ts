@@ -12,3 +12,5 @@ export const game_list: GameOption[] = [
     { label: "TERNO DE DEZENA", path: "terno-dezena", secondary_label: "3 DEZENAS", max_chars: 6, prizes: 5, type: 6 },
     // { label: "", path: "", max_chars: 0, prizes: 5 },
 ]
+
+export const isBicho = (game?: GameOption) => [3, 8, 7].includes(game?.type || 0)

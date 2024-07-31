@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Animated, FlatList, Pressable, ScrollView, TextInput, View } from "react-native"
 import { ActivityIndicator, Button, Surface, Text, TouchableRipple } from "react-native-paper"
 import { DefaultWrapper } from "../../components/DefaultWrapper"
-import { game_list } from "../GameList/game_list"
+import { game_list, isBicho } from "../GameList/game_list"
 import { colors } from "../../style/colors"
 import { PrizeComponent } from "./PrizeComponent"
 import { isPrizeSelected } from "../../tools/isPrizeSelected"
@@ -22,6 +22,7 @@ import { BetForm } from "../../types/BetForm"
 import { BetItem } from "../../types/BetItem"
 import { uniqueId } from "lodash"
 import { BetNumberChip } from "./BetNumberChip"
+import { BichoModal } from "./BichoModal/BichoModal"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -30,6 +31,8 @@ interface GameProps {
 export const Game: React.FC<GameProps> = ({ route }) => {
     const game_type = route.params?.tipo
     const game = game_list.find((item) => item.path == game_type)
+
+    const is_bicho = isBicho(game)
 
     const betValueInputRef = useRef<TextInput>(null)
     const betNumberInputRef = useRef<TextInput>(null)
@@ -42,9 +45,10 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     const [betValue, setBetValue] = useState(0)
     const [quotes, setQuotes] = useState<QuoteResponse[]>([])
 
-    const [focusedInput, setFocusedInput] = useState<"betNumber" | "betValue">("betNumber")
+    const [focusedInput, setFocusedInput] = useState<"betNumber" | "betValue">(is_bicho ? "betValue" : "betNumber")
 
     const [submitionError, setSubmitionError] = useState("")
+    const [bichoModal, setBichoModal] = useState(false)
 
     const handleChangeNumber = (typed: string) => {
         const numeric = typed.match(/\d/g)
@@ -158,6 +162,14 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         fetchQuotes()
     }
 
+    const handleBichoPress = (value: string) => {
+        if (bets.includes(value)) {
+            setBets((bets) => bets.filter((item) => item !== value))
+        } else {
+            setBets((bets) => [...bets, value])
+        }
+    }
+
     useEffect(() => {
         setSubmitionError("")
     }, [betNumber, selectedPrizes, betValue])
@@ -188,8 +200,9 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     onChangeText={handleChangeNumber}
                     keyboardType="number-pad"
                     maxLength={game.max_chars}
-                    onFocus={() => setFocusedInput("betNumber")}
+                    onFocus={() => (is_bicho ? setBichoModal(true) : setFocusedInput("betNumber"))}
                     onSubmitEditing={onConfirmPress}
+                    placeholder={is_bicho ? "Selecionar bicho" : undefined}
                 />
 
                 <FlatList
@@ -278,6 +291,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
                 <BetSubmitButton onPress={handleBetSubmit} errorText={submitionError} />
             </ScrollView>
+            <BichoModal open={bichoModal} onClose={() => setBichoModal(false)} onBichoPress={handleBichoPress} selected_values={bets} />
         </DefaultWrapper>
     ) : null
 }
