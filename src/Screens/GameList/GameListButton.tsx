@@ -2,7 +2,7 @@ import React from "react"
 import { View } from "react-native"
 import { Button, ButtonProps, Text, TouchableRipple } from "react-native-paper"
 import { colors } from "../../style/colors"
-import { ORIENTATION, WEB } from "../../tools/orientation"
+import { ORIENTATION, DESKTOP } from "../../tools/orientation"
 import { useLinkTo } from "@react-navigation/native"
 import { GameOption } from "../../types/GameOption"
 import { scale } from "../../tools/scale"
@@ -35,12 +35,12 @@ export const GameListButton: React.FC<GameListButtonProps> = ({ option }) => {
             <>
                 <Text
                     selectable={false}
-                    style={[{ fontWeight: "bold", fontSize: 16, textAlign: "center", color: colors.background }, WEB && { fontSize: scale(22) }]}
+                    style={[{ fontWeight: "bold", fontSize: 16, textAlign: "center", color: colors.background }, DESKTOP && { fontSize: scale(22) }]}
                     numberOfLines={2}
                 >
                     {option.label}
                 </Text>
-                <Text style={[{ fontSize: 10, color: colors.background, fontWeight: "bold" }, WEB && { fontSize: scale(16) }]}>
+                <Text style={[{ fontSize: 10, color: colors.background, fontWeight: "bold" }, DESKTOP && { fontSize: scale(16) }]}>
                     {option.secondary_label}
                 </Text>
             </>

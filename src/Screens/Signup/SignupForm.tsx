@@ -4,7 +4,7 @@ import { View, TextInput as NTextInput } from "react-native"
 import { UserForm } from "../../types/UserForm"
 import { user_schema } from "../../schemas/user_schema"
 import { Icon, Text, TextInput } from "react-native-paper"
-import { WEB } from "../../tools/orientation"
+import { DESKTOP } from "../../tools/orientation"
 import { colors } from "../../style/colors"
 import { focusInput } from "../../tools/focusInput"
 import { SignupInput } from "./SignupInput"
@@ -67,7 +67,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
             <Text
                 style={[
                     { fontWeight: "bold", fontSize: scale(24), textAlign: "center" },
-                    WEB ? { color: colors.background } : { color: colors.secondary },
+                    DESKTOP ? { color: colors.background } : { color: colors.secondary },
                 ]}
             >
                 Cadastrar
@@ -115,14 +115,14 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
                 returnKeyType="done"
             />
             <View style={[{ gap: scale(30), marginTop: scale(10) }]}>
-                <HomeButton buttonColor={WEB ? colors.background : colors.primary} onPress={() => formik.handleSubmit()} loading={loading}>
+                <HomeButton buttonColor={DESKTOP ? colors.background : colors.primary} onPress={() => formik.handleSubmit()} loading={loading}>
                     SALVAR
                 </HomeButton>
                 <HomeButton
                     mode="outlined"
-                    buttonColor={WEB ? colors.secondary : colors.background}
-                    textColor={WEB ? colors.background : colors.secondary}
-                    style={{ borderColor: WEB ? colors.background : colors.secondary, borderRadius: 100 }}
+                    buttonColor={DESKTOP ? colors.secondary : colors.background}
+                    textColor={DESKTOP ? colors.background : colors.secondary}
+                    style={{ borderColor: DESKTOP ? colors.background : colors.secondary, borderRadius: 100 }}
                     onPress={goBack}
                 >
                     VOLTAR

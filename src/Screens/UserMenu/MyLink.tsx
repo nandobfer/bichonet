@@ -3,7 +3,7 @@ import { Animated, View } from "react-native"
 import { useUser } from "../../hooks/useUser"
 import { GameText } from "../Game/GameText"
 import { TextInput } from "react-native-paper"
-import { ORIENTATION, WEB } from "../../tools/orientation"
+import { ORIENTATION, DESKTOP } from "../../tools/orientation"
 import { colors } from "../../style/colors"
 import Clipboard from "@react-native-clipboard/clipboard"
 import { scale } from "../../tools/scale"
@@ -24,7 +24,7 @@ export const MyLink: React.FC<MyLinkProps> = ({}) => {
 
     return user ? (
         <View style={[{ gap: scale(10), marginTop: "auto", paddingBottom: scale(40) }]}>
-            <GameText style={[{ fontSize: 22 }, WEB && { fontSize: scale(24) }]}>Meu Link</GameText>
+            <GameText style={[{ fontSize: 22 }, DESKTOP && { fontSize: scale(24) }]}>Meu Link</GameText>
             <TextInput
                 mode="outlined"
                 value={link}
@@ -34,7 +34,7 @@ export const MyLink: React.FC<MyLinkProps> = ({}) => {
                 outlineStyle={[{ backgroundColor: colors.background, borderRadius: 15 }]}
                 right={<TextInput.Icon icon={"content-copy"} color={colors.primary} onPress={handleCopy} />}
             />
-            <GameText style={[{ color: colors.secondary }, WEB && { fontSize: scale(18) }, copied && { color: colors.success, fontWeight: "bold" }]}>
+            <GameText style={[{ color: colors.secondary }, DESKTOP && { fontSize: scale(18) }, copied && { color: colors.success, fontWeight: "bold" }]}>
                 {copied ? "Copiado!" : "Use este link para convidar seus amigos e ganhar tal tal tal"}
             </GameText>
         </View>

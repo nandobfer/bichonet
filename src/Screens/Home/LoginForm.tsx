@@ -6,7 +6,7 @@ import { focusInput } from "../../tools/focusInput"
 import { Text, TextInput } from "react-native-paper"
 import { colors } from "../../style/colors"
 import { HomeButton } from "./HomeButton"
-import { WEB } from "../../tools/orientation"
+import { DESKTOP } from "../../tools/orientation"
 import { useLinkTo } from "@react-navigation/native"
 import { LoginForm as LoginFormType } from "../../types/LoginForm"
 import { api } from "../../backend/api"
@@ -56,7 +56,7 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
             <Text
                 style={[
                     { fontWeight: "bold", fontSize: scale(24), textAlign: "center" },
-                    WEB ? { color: colors.background } : { color: colors.secondary },
+                    DESKTOP ? { color: colors.background } : { color: colors.secondary },
                 ]}
             >
                 Entrar
@@ -88,22 +88,22 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
                 returnKeyType="done"
             />
 
-            <View style={[{ flexDirection: "row", gap: scale(30), marginTop: scale(10) }, WEB && { justifyContent: "flex-end" }]}>
+            <View style={[{ flexDirection: "row", gap: scale(30), marginTop: scale(10) }, DESKTOP && { justifyContent: "flex-end" }]}>
                 <HomeButton
                     style={[
-                        { borderColor: WEB ? colors.background : colors.secondary, borderRadius: 100 },
-                        WEB && { flex: 0.25, minWidth: scale(150) },
+                        { borderColor: DESKTOP ? colors.background : colors.secondary, borderRadius: 100 },
+                        DESKTOP && { flex: 0.25, minWidth: scale(150) },
                     ]}
                     mode="outlined"
-                    buttonColor={WEB ? colors.secondary : colors.background}
-                    textColor={WEB ? colors.background : colors.secondary}
+                    buttonColor={DESKTOP ? colors.secondary : colors.background}
+                    textColor={DESKTOP ? colors.background : colors.secondary}
                     onPress={goBack}
                 >
                     VOLTAR
                 </HomeButton>
                 <HomeButton
-                    style={[WEB && { flex: 0.25, minWidth: scale(150) }]}
-                    buttonColor={WEB ? colors.background : colors.primary}
+                    style={[DESKTOP && { flex: 0.25, minWidth: scale(150) }]}
+                    buttonColor={DESKTOP ? colors.background : colors.primary}
                     onPress={() => formik.handleSubmit()}
                     loading={loading}
                 >

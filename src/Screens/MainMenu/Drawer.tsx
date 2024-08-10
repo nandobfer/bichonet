@@ -3,7 +3,7 @@ import { Animated, Pressable } from "react-native"
 import { useDrawer } from "../../hooks/useDrawer"
 import { Surface } from "react-native-paper"
 import { colors } from "../../style/colors"
-import { WEB } from "../../tools/orientation"
+import { DESKTOP } from "../../tools/orientation"
 import { CartComponent } from "../../components/Cart/CartComponent"
 import { scale } from "../../tools/scale"
 
@@ -40,7 +40,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
             </Animated.View>
             <Animated.View
                 style={{
-                    width: width * (WEB ? 0.25 : 0.75),
+                    width: width * (DESKTOP ? 0.25 : 0.75),
                     position: "absolute",
                     right: 0,
                     top: 0,

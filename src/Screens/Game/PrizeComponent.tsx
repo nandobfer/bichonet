@@ -1,7 +1,7 @@
 import React from "react"
 import { Surface, Text, TouchableRipple } from "react-native-paper"
 import { colors } from "../../style/colors"
-import { WEB } from "../../tools/orientation"
+import { DESKTOP } from "../../tools/orientation"
 import { scale } from "../../tools/scale"
 
 interface PrizeComponentProps {
@@ -26,11 +26,11 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_numbers, s
                         borderBottomWidth: 3,
                         borderColor: colors.primary,
                     },
-                    WEB && { padding: scale(15), borderBottomWidth: 5 },
+                    DESKTOP && { padding: scale(15), borderBottomWidth: 5 },
                     selected && { backgroundColor: colors.success, borderBottomColor: colors.success },
                 ]}
             >
-                <Text style={[{ color: colors.background, fontSize: 26, fontWeight: "bold" }, WEB && { fontSize: scale(30) }]} selectable={false}>
+                <Text style={[{ color: colors.background, fontSize: 26, fontWeight: "bold" }, DESKTOP && { fontSize: scale(30) }]} selectable={false}>
                     {label}
                 </Text>
             </Surface>

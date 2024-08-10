@@ -7,7 +7,7 @@ import { BetComponent } from "./BetComponent"
 import { game_list } from "../../Screens/GameList/game_list"
 import { BettedGameComponent } from "./BettedGameComponent"
 import { useDrawer } from "../../hooks/useDrawer"
-import { ORIENTATION, WEB } from "../../tools/orientation"
+import { ORIENTATION, DESKTOP } from "../../tools/orientation"
 import { useFormik } from "formik"
 import { BetForm } from "../../types/BetForm"
 import { useUser } from "../../hooks/useUser"
@@ -75,13 +75,13 @@ export const CartComponent: React.FC<CartComponentProps> = ({}) => {
     return (
         <View style={[{ paddingBottom: scale(30), gap: scale(20) }]}>
             <View style={[{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }]}>
-                <Text style={[{ fontSize: 30, color: colors.secondary, fontWeight: "bold" }, WEB && { fontSize: scale(35) }]}>Carrinho</Text>
+                <Text style={[{ fontSize: 30, color: colors.secondary, fontWeight: "bold" }, DESKTOP && { fontSize: scale(35) }]}>Carrinho</Text>
                 <IconButton
                     onPress={() => toggleDrawer()}
                     icon={"close-circle"}
                     style={[{ alignSelf: "flex-end", margin: 0 }]}
                     iconColor={colors.secondary}
-                    size={WEB ? scale(50) : 35}
+                    size={DESKTOP ? scale(50) : 35}
                 />
             </View>
 

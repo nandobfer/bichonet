@@ -6,7 +6,7 @@ import { game_list } from "../../GameList/game_list"
 import { GameText } from "../../Game/GameText"
 import { currencyMask } from "../../../tools/currencyMask"
 import { colors } from "../../../style/colors"
-import { ORIENTATION, WEB } from "../../../tools/orientation"
+import { ORIENTATION, DESKTOP } from "../../../tools/orientation"
 import { scale } from "../../../tools/scale"
 
 interface QuoteComponentProps {
@@ -21,8 +21,8 @@ export const QuoteComponent: React.FC<QuoteComponentProps> = ({ quote }) => {
             <Icon size={scale(15)} source={"circle"} color={colors.secondary} />
 
             <View style={[{ gap: 10 }]}>
-                <GameText style={[{ fontSize: 22 }, WEB && { fontSize: scale(24) }]}>{game?.label}</GameText>
-                <GameText style={[{ color: colors.success, fontWeight: "bold" }, WEB && { fontSize: scale(20) }]}>
+                <GameText style={[{ fontSize: 22 }, DESKTOP && { fontSize: scale(24) }]}>{game?.label}</GameText>
+                <GameText style={[{ color: colors.success, fontWeight: "bold" }, DESKTOP && { fontSize: scale(20) }]}>
                     {currencyMask(quote.valor)}
                 </GameText>
             </View>

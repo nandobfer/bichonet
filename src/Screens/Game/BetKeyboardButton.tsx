@@ -2,7 +2,7 @@ import React from "react"
 import { View } from "react-native"
 import { Icon, Surface, Text, TouchableRipple } from "react-native-paper"
 import { colors } from "../../style/colors"
-import { MOBILE, ORIENTATION, WEB } from "../../tools/orientation"
+import { MOBILE, ORIENTATION, DESKTOP } from "../../tools/orientation"
 import { scale } from "../../tools/scale"
 
 interface BetKeyboardButtonProps {
@@ -29,7 +29,7 @@ export const BetKeyboardButton: React.FC<BetKeyboardButtonProps> = ({ value, onP
                         alignItems: "center",
                         borderRadius: button_border,
                     },
-                    WEB && { width: scale(120), height: scale(65) },
+                    DESKTOP && { width: scale(120), height: scale(65) },
                     fat && { width: "100%" },
                 ]}
             >
