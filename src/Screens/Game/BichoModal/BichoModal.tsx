@@ -6,6 +6,7 @@ import { GameText } from "../GameText"
 import { BichoContainer } from "./BichoContainer"
 import { bichos } from "../bichos_list"
 import { MenuButton } from "../../MainMenu/MenuButton"
+import { scale } from "../../../tools/scale"
 
 interface SelectBichoModalProps {
     open: boolean
@@ -22,10 +23,12 @@ export const BichoModal: React.FC<SelectBichoModalProps> = ({ open, onClose, onB
             visible={open}
             onDismiss={onClose}
             dismissable={false}
-            contentContainerStyle={[{ padding: 20, alignSelf: "center", backgroundColor: colors.background, borderRadius: 15, gap: 15 }]}
+            contentContainerStyle={[
+                { padding: scale(20), alignSelf: "center", backgroundColor: colors.background, borderRadius: 15, gap: scale(15) },
+            ]}
         >
             <View style={[{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }]}>
-                <GameText style={[{ fontSize: 24, fontWeight: "bold" }]}>Selecionar bicho</GameText>
+                <GameText style={[{ fontSize: scale(24), fontWeight: "bold" }]}>Selecionar bicho</GameText>
                 <IconButton icon={"close-circle"} iconColor={colors.secondary} style={[{ margin: 0 }]} onPress={onClose} />
             </View>
 
@@ -41,9 +44,9 @@ export const BichoModal: React.FC<SelectBichoModalProps> = ({ open, onClose, onB
                     />
                 )}
                 numColumns={5}
-                style={[{ flex: 1, marginHorizontal: -20 }]}
-                columnWrapperStyle={[{ gap: 5 }]}
-                contentContainerStyle={[{ gap: 5, paddingVertical: 10, paddingHorizontal: 20 }]}
+                style={[{ flex: 1, marginHorizontal: scale(-20) }]}
+                columnWrapperStyle={[{ gap: scale(5) }]}
+                contentContainerStyle={[{ gap: scale(5), paddingVertical: scale(10), paddingHorizontal: scale(20) }]}
                 scrollEnabled={false}
             />
 

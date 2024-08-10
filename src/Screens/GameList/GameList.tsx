@@ -8,13 +8,14 @@ import { game_list } from "./game_list"
 import { GameListButton } from "./GameListButton"
 import { Text } from "react-native-paper"
 import { DefaultWrapper } from "../../components/DefaultWrapper"
+import { scale } from "../../tools/scale"
 
 interface GameListProps {}
 
 export const GameList: React.FC<GameListProps> = ({}) => {
     return (
         <DefaultWrapper>
-            <Text style={[{ color: colors.secondary, fontSize: 22, padding: 30, textAlign: "center", paddingTop: 0 }]}>
+            <Text style={[{ color: colors.secondary, fontSize: scale(22), padding: scale(30), textAlign: "center", paddingTop: 0 }]}>
                 Escolha qual modalidade você quer apostar
             </Text>
 
@@ -23,8 +24,8 @@ export const GameList: React.FC<GameListProps> = ({}) => {
                 data={game_list}
                 renderItem={({ item }) => <GameListButton option={item} />}
                 keyExtractor={(item) => item.path}
-                contentContainerStyle={[{ paddingHorizontal: 30, gap: 20, paddingBottom: 20 }]}
-                columnWrapperStyle={[{ gap: 20 }]}
+                contentContainerStyle={[{ paddingHorizontal: scale(30), gap: scale(20), paddingBottom: scale(20) }]}
+                columnWrapperStyle={[{ gap: scale(20) }]}
             />
         </DefaultWrapper>
     )

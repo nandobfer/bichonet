@@ -2,6 +2,7 @@ import React from "react"
 import { FlatList, View } from "react-native"
 import { TransactionResponse } from "../../types/TransactionResponse"
 import { TransactionContainer } from "./TransactionContainer"
+import { scale } from "../../tools/scale"
 
 interface HistoryContainerProps {}
 
@@ -28,8 +29,8 @@ export const HistoryContainer: React.FC<HistoryContainerProps> = ({}) => {
         <FlatList
             data={transactions.sort((a, b) => Number(b.datetime) - Number(a.datetime))}
             renderItem={({ item }) => <TransactionContainer transaction={item} />}
-            style={[{ marginHorizontal: -30, marginVertical: -10 }]}
-            contentContainerStyle={[{ paddingVertical: 10, paddingHorizontal: 30, gap: 30, flex: 1 }]}
+            style={[{ marginHorizontal: scale(-30), marginVertical: scale(-10) }]}
+            contentContainerStyle={[{ paddingVertical: scale(10), paddingHorizontal: scale(30), gap: scale(30), flex: 1 }]}
         />
     )
 }

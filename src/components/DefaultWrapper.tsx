@@ -4,6 +4,7 @@ import { colors } from "../style/colors"
 import { ORIENTATION } from "../tools/orientation"
 import { Header } from "../Screens/MainMenu/Header"
 import { Drawer } from "../Screens/MainMenu/Drawer"
+import { scale } from "../tools/scale"
 
 interface DefaultWrapperProps {
     children: React.ReactNode
@@ -14,7 +15,7 @@ export const DefaultWrapper: React.FC<DefaultWrapperProps> = ({ children }) => {
         <View
             style={[
                 { flex: 1, backgroundColor: colors.background, overflow: "hidden" },
-                ORIENTATION == "desktop" && { width: 600, alignSelf: "center", position: "static" },
+                ORIENTATION == "desktop" && { width: scale(600), alignSelf: "center", position: "static" },
             ]}
         >
             <Header />

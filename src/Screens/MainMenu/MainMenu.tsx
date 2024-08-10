@@ -13,6 +13,7 @@ import { DefaultWrapper } from "../../components/DefaultWrapper"
 import { SceneMap, TabBar, TabView } from "react-native-tab-view"
 import { UserMenu } from "../UserMenu/UserMenu"
 import { InfoPage } from "../InfoPage/InfoPage"
+import { scale } from "../../tools/scale"
 
 interface MainMenuProps {}
 
@@ -44,19 +45,19 @@ export const MainMenu: React.FC<MainMenuProps> = ({}) => {
                     navigationState={{ index, routes }}
                     onIndexChange={setIndex}
                     renderScene={renderScene}
-                    style={{ paddingHorizontal: 30 }}
-                    sceneContainerStyle={{ marginHorizontal: -30, marginTop: 20 }}
+                    style={{ paddingHorizontal: scale(30) }}
+                    sceneContainerStyle={{ marginHorizontal: scale(-30), marginTop: scale(20) }}
                     renderTabBar={(props) => (
                         <TabBar
                             {...props}
                             style={{
                                 backgroundColor: colors.background,
                             }}
-                            labelStyle={{ color: colors.secondary, textTransform: "none", fontSize: 24 }}
+                            labelStyle={{ color: colors.secondary, textTransform: "none", fontSize: scale(24) }}
                             indicatorStyle={{
                                 backgroundColor: colors.secondary,
                                 borderRadius: 5,
-                                height: 5,
+                                height: scale(5),
                             }}
                         />
                     )}

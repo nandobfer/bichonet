@@ -1,8 +1,8 @@
 import React from "react"
-import { View } from "react-native"
-import { RadioButton, Surface, Text, TouchableRipple } from "react-native-paper"
+import { Surface, Text, TouchableRipple } from "react-native-paper"
 import { colors } from "../../style/colors"
-import { ORIENTATION } from "../../tools/orientation"
+import { WEB } from "../../tools/orientation"
+import { scale } from "../../tools/scale"
 
 interface PrizeComponentProps {
     prize_numbers: number[]
@@ -26,14 +26,11 @@ export const PrizeComponent: React.FC<PrizeComponentProps> = ({ prize_numbers, s
                         borderBottomWidth: 3,
                         borderColor: colors.primary,
                     },
-                    ORIENTATION == "desktop" && { padding: 15, borderBottomWidth: 5 },
+                    WEB && { padding: scale(15), borderBottomWidth: 5 },
                     selected && { backgroundColor: colors.success, borderBottomColor: colors.success },
                 ]}
             >
-                <Text
-                    style={[{ color: colors.background, fontSize: 26, fontWeight: "bold" }, ORIENTATION == "desktop" && { fontSize: 30 }]}
-                    selectable={false}
-                >
+                <Text style={[{ color: colors.background, fontSize: 26, fontWeight: "bold" }, WEB && { fontSize: scale(30) }]} selectable={false}>
                     {label}
                 </Text>
             </Surface>

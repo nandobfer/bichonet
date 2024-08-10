@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react"
 import { Animated, View } from "react-native"
 import { Text, TouchableRipple } from "react-native-paper"
 import { colors } from "../../style/colors"
+import { scale } from "../../tools/scale"
 
 interface BetSubmitButtonProps {
     onPress: () => void
@@ -25,9 +26,11 @@ export const BetSubmitButton: React.FC<BetSubmitButtonProps> = ({ onPress, error
 
     return (
         <TouchableRipple borderless style={[{ borderRadius: 15 }]} onPress={onPress}>
-            <Animated.View style={[{ backgroundColor, borderRadius: 15, justifyContent: "center", alignItems: "center", padding: 10 }]}>
+            <Animated.View style={[{ backgroundColor, borderRadius: 15, justifyContent: "center", alignItems: "center", padding: scale(10) }]}>
                 <Text
-                    style={[{ fontWeight: "bold", fontSize: 30, color: errorText ? colors.secondary : colors.background, textAlign: "center" }]}
+                    style={[
+                        { fontWeight: "bold", fontSize: scale(30), color: errorText ? colors.secondary : colors.background, textAlign: "center" },
+                    ]}
                     selectable={false}
                 >
                     {errorText || "Apostar"}

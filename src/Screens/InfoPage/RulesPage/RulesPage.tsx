@@ -4,13 +4,14 @@ import { DefaultWrapper } from "../../../components/DefaultWrapper"
 import { GameText } from "../../Game/GameText"
 import { ORIENTATION } from "../../../tools/orientation"
 import { TopicComponent } from "./TopicComponent"
+import { scale } from "../../../tools/scale"
 
 interface RulesPageProps {}
 
 export const RulesPage: React.FC<RulesPageProps> = ({}) => {
     return (
         <DefaultWrapper>
-            <ScrollView style={[{ flex: 1 }]} contentContainerStyle={[{ padding: 30, gap: 15, paddingTop: 0 }]}>
+            <ScrollView style={[{ flex: 1 }]} contentContainerStyle={[{ padding: scale(30), gap: scale(15), paddingTop: 0 }]}>
                 <TopicComponent
                     label="Como Jogar"
                     lines={[

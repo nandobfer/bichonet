@@ -2,7 +2,8 @@ import React from "react"
 import { View } from "react-native"
 import { Icon, Surface, Text, TouchableRipple } from "react-native-paper"
 import { colors } from "../../style/colors"
-import { ORIENTATION } from "../../tools/orientation"
+import { MOBILE, ORIENTATION, WEB } from "../../tools/orientation"
+import { scale } from "../../tools/scale"
 
 interface BetKeyboardButtonProps {
     value?: number
@@ -21,26 +22,26 @@ export const BetKeyboardButton: React.FC<BetKeyboardButtonProps> = ({ value, onP
                 elevation={2}
                 style={[
                     {
-                        padding: 10,
+                        padding: scale(10),
                         width: 75,
                         height: 50,
                         justifyContent: "center",
                         alignItems: "center",
                         borderRadius: button_border,
                     },
-                    ORIENTATION == "desktop" && { width: 120, height: 65 },
+                    WEB && { width: scale(120), height: scale(65) },
                     fat && { width: "100%" },
                 ]}
             >
                 {value !== undefined ? (
                     <Text
-                        style={[{ fontSize: 40, fontWeight: "bold", color: colors.background }, ORIENTATION == "mobile" && { fontSize: 35 }]}
+                        style={[{ fontSize: scale(40), fontWeight: "bold", color: colors.background }, MOBILE && { fontSize: 35 }]}
                         selectable={false}
                     >
                         {value}
                     </Text>
                 ) : (
-                    <Icon source={icon} size={40} color={icon_color} />
+                    <Icon source={icon} size={scale(40)} color={icon_color} />
                 )}
             </Surface>
         </TouchableRipple>

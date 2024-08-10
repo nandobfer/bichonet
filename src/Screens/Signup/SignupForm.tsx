@@ -4,7 +4,7 @@ import { View, TextInput as NTextInput } from "react-native"
 import { UserForm } from "../../types/UserForm"
 import { user_schema } from "../../schemas/user_schema"
 import { Icon, Text, TextInput } from "react-native-paper"
-import { ORIENTATION } from "../../tools/orientation"
+import { WEB } from "../../tools/orientation"
 import { colors } from "../../style/colors"
 import { focusInput } from "../../tools/focusInput"
 import { SignupInput } from "./SignupInput"
@@ -13,6 +13,7 @@ import { useLinkTo } from "@react-navigation/native"
 import { HomeButton } from "../Home/HomeButton"
 import { api } from "../../backend/api"
 import unmask from "../../tools/unmask"
+import { scale } from "../../tools/scale"
 
 interface SignupFormProps {
     goBack?: () => void
@@ -56,17 +57,17 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
     return (
         // {/* <View style={[{ alignSelf: "center" }]}>
         //     <Icon
-        //         size={ORIENTATION == "desktop" ? 300 : 200}
+        //         size={WEB ? 300 : 200}
         //         source={"account-circle"}
-        //         color={ORIENTATION == "desktop" ? colors.background : colors.secondary}
+        //         color={WEB ? colors.background : colors.secondary}
         //     />
         // </View> */}
 
-        <View style={[{ gap: 20 }]}>
+        <View style={[{ gap: scale(20) }]}>
             <Text
                 style={[
-                    { fontWeight: "bold", fontSize: 24, textAlign: "center" },
-                    ORIENTATION == "desktop" ? { color: colors.background } : { color: colors.secondary },
+                    { fontWeight: "bold", fontSize: scale(24), textAlign: "center" },
+                    WEB ? { color: colors.background } : { color: colors.secondary },
                 ]}
             >
                 Cadastrar
@@ -113,19 +114,15 @@ export const SignupForm: React.FC<SignupFormProps> = ({ goBack }) => {
                 onSubmitEditing={() => formik.handleSubmit()}
                 returnKeyType="done"
             />
-            <View style={[{ gap: 30, marginTop: 10 }]}>
-                <HomeButton
-                    buttonColor={ORIENTATION == "desktop" ? colors.background : colors.primary}
-                    onPress={() => formik.handleSubmit()}
-                    loading={loading}
-                >
+            <View style={[{ gap: scale(30), marginTop: scale(10) }]}>
+                <HomeButton buttonColor={WEB ? colors.background : colors.primary} onPress={() => formik.handleSubmit()} loading={loading}>
                     SALVAR
                 </HomeButton>
                 <HomeButton
                     mode="outlined"
-                    buttonColor={ORIENTATION == "desktop" ? colors.secondary : colors.background}
-                    textColor={ORIENTATION == "desktop" ? colors.background : colors.secondary}
-                    style={{ borderColor: ORIENTATION == "desktop" ? colors.background : colors.secondary, borderRadius: 100 }}
+                    buttonColor={WEB ? colors.secondary : colors.background}
+                    textColor={WEB ? colors.background : colors.secondary}
+                    style={{ borderColor: WEB ? colors.background : colors.secondary, borderRadius: 100 }}
                     onPress={goBack}
                 >
                     VOLTAR

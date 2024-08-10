@@ -6,13 +6,14 @@ import { focusInput } from "../../tools/focusInput"
 import { Text, TextInput } from "react-native-paper"
 import { colors } from "../../style/colors"
 import { HomeButton } from "./HomeButton"
-import { ORIENTATION } from "../../tools/orientation"
+import { WEB } from "../../tools/orientation"
 import { useLinkTo } from "@react-navigation/native"
 import { LoginForm as LoginFormType } from "../../types/LoginForm"
 import { api } from "../../backend/api"
 import unmask from "../../tools/unmask"
 import { AxiosError } from "axios"
 import { useUser } from "../../hooks/useUser"
+import { scale } from "../../tools/scale"
 
 interface LoginContainerProps {
     goBack: () => void
@@ -51,11 +52,11 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
     const input_refs = Object.entries(formik.values).map(([key, value]) => useRef<NTextInput>(null))
 
     return (
-        <View style={[{ gap: 20 }]}>
+        <View style={[{ gap: scale(20) }]}>
             <Text
                 style={[
-                    { fontWeight: "bold", fontSize: 24, textAlign: "center" },
-                    ORIENTATION == "desktop" ? { color: colors.background } : { color: colors.secondary },
+                    { fontWeight: "bold", fontSize: scale(24), textAlign: "center" },
+                    WEB ? { color: colors.background } : { color: colors.secondary },
                 ]}
             >
                 Entrar
@@ -87,22 +88,22 @@ export const LoginForm: React.FC<LoginContainerProps> = ({ goBack }) => {
                 returnKeyType="done"
             />
 
-            <View style={[{ flexDirection: "row", gap: 30, marginTop: 10 }, ORIENTATION == "desktop" && { justifyContent: "flex-end" }]}>
+            <View style={[{ flexDirection: "row", gap: scale(30), marginTop: scale(10) }, WEB && { justifyContent: "flex-end" }]}>
                 <HomeButton
                     style={[
-                        { borderColor: ORIENTATION == "desktop" ? colors.background : colors.secondary, borderRadius: 100 },
-                        ORIENTATION == "desktop" && { flex: 0.25, minWidth: 150 },
+                        { borderColor: WEB ? colors.background : colors.secondary, borderRadius: 100 },
+                        WEB && { flex: 0.25, minWidth: scale(150) },
                     ]}
                     mode="outlined"
-                    buttonColor={ORIENTATION == "desktop" ? colors.secondary : colors.background}
-                    textColor={ORIENTATION == "desktop" ? colors.background : colors.secondary}
+                    buttonColor={WEB ? colors.secondary : colors.background}
+                    textColor={WEB ? colors.background : colors.secondary}
                     onPress={goBack}
                 >
                     VOLTAR
                 </HomeButton>
                 <HomeButton
-                    style={[ORIENTATION == "desktop" && { flex: 0.25, minWidth: 150 }]}
-                    buttonColor={ORIENTATION == "desktop" ? colors.background : colors.primary}
+                    style={[WEB && { flex: 0.25, minWidth: scale(150) }]}
+                    buttonColor={WEB ? colors.background : colors.primary}
                     onPress={() => formik.handleSubmit()}
                     loading={loading}
                 >

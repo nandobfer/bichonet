@@ -7,6 +7,7 @@ import { ORIENTATION } from "../../tools/orientation"
 import { useUser } from "../../hooks/useUser"
 import { useDrawer } from "../../hooks/useDrawer"
 import { useLinkTo, useNavigation, useNavigationState } from "@react-navigation/native"
+import { scale } from "../../tools/scale"
 
 interface HeaderProps {}
 
@@ -24,22 +25,22 @@ export const Header: React.FC<HeaderProps> = ({}) => {
         <View
             style={[
                 { flexDirection: "row", padding: 20, alignItems: "center", justifyContent: "space-between" },
-                ORIENTATION == "desktop" && { padding: 20, paddingVertical: 50 },
+                ORIENTATION == "desktop" && { padding: scale(20), paddingVertical: scale(20) },
             ]}
         >
             <IconButton
                 onPress={() => onBackPress()}
                 icon={"chevron-left-circle"}
                 iconColor={colors.secondary}
-                size={ORIENTATION == "desktop" ? 50 : 35}
+                size={ORIENTATION == "desktop" ? scale(50) : 35}
                 style={[{ margin: 0 }]}
             />
-            <Logo size={ORIENTATION == "desktop" ? 125 : 75} />
+            <Logo size={ORIENTATION == "desktop" ? scale(125) : 75} />
             <IconButton
                 onPress={() => toggleDrawer()}
                 icon={"cart"}
                 iconColor={colors.secondary}
-                size={ORIENTATION == "desktop" ? 50 : 35}
+                size={ORIENTATION == "desktop" ? scale(50) : 35}
                 style={[{ margin: 0 }]}
             />
         </View>

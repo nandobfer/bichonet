@@ -23,6 +23,7 @@ import { BetItem } from "../../types/BetItem"
 import { uniqueId } from "lodash"
 import { BetNumberChip } from "./BetNumberChip"
 import { BichoModal } from "./BichoModal/BichoModal"
+import { scale } from "../../tools/scale"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -117,7 +118,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
             if (betNumber.length !== game?.max_chars) return
             setBets((value) => [...value.filter((item) => item !== betNumber), betNumber])
             setBetNumber("")
-            betNumberInputRef.current?.focus()
+            setTimeout(() => betNumberInputRef.current?.focus(), 100)
             return
         }
 
@@ -189,9 +190,13 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
     return game ? (
         <DefaultWrapper>
-            <ScrollView style={[{ flex: 1 }]} contentContainerStyle={[{ paddingHorizontal: 30, gap: 15 }]}>
-                <Surface style={[{ backgroundColor: colors.primary, borderRadius: 15, justifyContent: "center", alignItems: "center", padding: 10 }]}>
-                    <Text style={[{ fontSize: 20, fontWeight: "bold", color: colors.background }]}>{game.label}</Text>
+            <ScrollView style={[{ flex: 1 }]} contentContainerStyle={[{ paddingHorizontal: scale(30), gap: scale(15) }]}>
+                <Surface
+                    style={[
+                        { backgroundColor: colors.primary, borderRadius: 15, justifyContent: "center", alignItems: "center", padding: scale(10) },
+                    ]}
+                >
+                    <Text style={[{ fontSize: scale(20), fontWeight: "bold", color: colors.background }]}>{game.label}</Text>
                 </Surface>
 
                 <BetInput
@@ -210,8 +215,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     renderItem={({ item }) => <BetNumberChip value={item} onDelete={onDeleteBetNumber} />}
                     ListEmptyComponent={<View style={[{ height: 32 }]} />}
                     horizontal
-                    style={[{ marginHorizontal: -30 }]}
-                    contentContainerStyle={[{ paddingHorizontal: 30, gap: 15 }, ORIENTATION === "mobile" && { paddingVertical: 0 }]}
+                    style={[{ marginHorizontal: scale(-30) }]}
+                    contentContainerStyle={[{ paddingHorizontal: scale(30), gap: scale(15) }, ORIENTATION === "mobile" && { paddingVertical: 0 }]}
                 />
 
                 <GameText>
@@ -224,7 +229,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     </GameText>
                 </GameText>
 
-                <View style={[{ flexDirection: "row", gap: 15 }]}>
+                <View style={[{ flexDirection: "row", gap: scale(15) }]}>
                     <PrizeComponent label="1º" prize_numbers={[1]} selected={selectedPrizes.length === 1} onPress={handlePressPrize} />
                     <PrizeComponent
                         label="1º ao 5º"
@@ -250,7 +255,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                                 position: "absolute",
                                 left: 10,
                                 flexDirection: "row",
-                                gap: 5,
+                                gap: scale(5),
                                 height: "100%",
                                 alignItems: "center",
                                 width: "100%",
@@ -279,8 +284,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                                     {currencyMask(calculateQuote(betValue, item.valor))}
                                 </GameText>
                             )}
-                            contentContainerStyle={[{ gap: 8, paddingVertical: 5 }]}
-                            ItemSeparatorComponent={() => <GameText style={{ marginLeft: 8 }}>e</GameText>}
+                            contentContainerStyle={[{ gap: scale(8), paddingVertical: scale(5) }]}
+                            ItemSeparatorComponent={() => <GameText style={{ marginLeft: scale(8) }}>e</GameText>}
                         />
                     </GameText>
                 ) : (

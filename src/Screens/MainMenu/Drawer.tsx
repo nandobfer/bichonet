@@ -3,8 +3,9 @@ import { Animated, Pressable } from "react-native"
 import { useDrawer } from "../../hooks/useDrawer"
 import { Surface } from "react-native-paper"
 import { colors } from "../../style/colors"
-import { ORIENTATION } from "../../tools/orientation"
+import { WEB } from "../../tools/orientation"
 import { CartComponent } from "../../components/Cart/CartComponent"
+import { scale } from "../../tools/scale"
 
 interface DrawerProps {}
 
@@ -39,7 +40,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
             </Animated.View>
             <Animated.View
                 style={{
-                    width: width * (ORIENTATION == "desktop" ? 0.25 : 0.75),
+                    width: width * (WEB ? 0.25 : 0.75),
                     position: "absolute",
                     right: 0,
                     top: 0,
@@ -48,7 +49,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
                     flexDirection: "row-reverse",
                 }}
             >
-                <Surface elevation={5} style={[{ flex: 1, backgroundColor: colors.background, padding: 30 }]}>
+                <Surface elevation={5} style={[{ flex: 1, backgroundColor: colors.background, padding: scale(30) }]}>
                     <CartComponent />
                 </Surface>
             </Animated.View>

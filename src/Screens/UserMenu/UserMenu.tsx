@@ -7,6 +7,7 @@ import { MenuButton } from "../MainMenu/MenuButton"
 import { useLinkTo } from "@react-navigation/native"
 import { DefaultMenuWrapper } from "../../components/DefaultMenuWrapper"
 import { MyLink } from "./MyLink"
+import { scale } from "../../tools/scale"
 
 interface UserMenuProps {}
 
@@ -16,7 +17,7 @@ export const UserMenu: React.FC<UserMenuProps> = ({}) => {
 
     return (
         <DefaultMenuWrapper>
-            <Text style={[{ color: colors.secondary, alignSelf: "center", fontSize: 20 }]}>
+            <Text style={[{ color: colors.secondary, alignSelf: "center", fontSize: scale(20) }]}>
                 CŔEDITO: <Text style={[{ color: balance > 0 ? colors.success : colors.error, fontWeight: "bold" }]}>{currencyMask(balance)}</Text>
             </Text>
 

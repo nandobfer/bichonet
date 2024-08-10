@@ -7,7 +7,7 @@ import { BetComponent } from "./BetComponent"
 import { game_list } from "../../Screens/GameList/game_list"
 import { BettedGameComponent } from "./BettedGameComponent"
 import { useDrawer } from "../../hooks/useDrawer"
-import { ORIENTATION } from "../../tools/orientation"
+import { ORIENTATION, WEB } from "../../tools/orientation"
 import { useFormik } from "formik"
 import { BetForm } from "../../types/BetForm"
 import { useUser } from "../../hooks/useUser"
@@ -15,6 +15,7 @@ import { bet_schema } from "../../schemas/bet_schema"
 import { BetFormComponent } from "./BetFormComponent"
 import { api } from "../../backend/api"
 import unmask from "../../tools/unmask"
+import { scale } from "../../tools/scale"
 
 interface CartComponentProps {}
 
@@ -72,27 +73,25 @@ export const CartComponent: React.FC<CartComponentProps> = ({}) => {
     }, [total])
 
     return (
-        <View style={[{ paddingBottom: 30, gap: 20 }]}>
+        <View style={[{ paddingBottom: scale(30), gap: scale(20) }]}>
             <View style={[{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }]}>
-                <Text style={[{ fontSize: 30, color: colors.secondary, fontWeight: "bold" }, ORIENTATION == "desktop" && { fontSize: 35 }]}>
-                    Carrinho
-                </Text>
+                <Text style={[{ fontSize: 30, color: colors.secondary, fontWeight: "bold" }, WEB && { fontSize: scale(35) }]}>Carrinho</Text>
                 <IconButton
                     onPress={() => toggleDrawer()}
                     icon={"close-circle"}
                     style={[{ alignSelf: "flex-end", margin: 0 }]}
                     iconColor={colors.secondary}
-                    size={ORIENTATION == "desktop" ? 50 : 35}
+                    size={WEB ? scale(50) : 35}
                 />
             </View>
 
             <FlatList
                 data={bettedGames}
                 renderItem={({ item }) => <BettedGameComponent game={item} bets={bets.filter((bet) => bet.game.type === item.type)} />}
-                contentContainerStyle={[{ paddingVertical: 10, gap: 20 }]}
+                contentContainerStyle={[{ paddingVertical: scale(10), gap: scale(20) }]}
                 ListFooterComponent={<BetComponent label="TOTAL" value={total} bold error={formik.errors.bets} />}
             />
-            {!!formik.errors.bets && <Text style={[{ color: colors.error, marginTop: -10 }]}>{formik.errors.bets?.toString()}</Text>}
+            {!!formik.errors.bets && <Text style={[{ color: colors.error, marginTop: scale(-10) }]}>{formik.errors.bets?.toString()}</Text>}
 
             <BetFormComponent formik={formik} />
 
