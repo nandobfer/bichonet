@@ -2,7 +2,7 @@ export interface GameOption {
     label: string
     path: string
     secondary_label?: string
-    max_chars: number
-    prizes: number
+    prizes: number[][]
     type: number
+    mask: string
 }

@@ -20,10 +20,13 @@ import { BetSubmitButton } from "./BetSubmitButton"
 import { useCart } from "../../hooks/useCart"
 import { BetForm } from "../../types/BetForm"
 import { BetItem } from "../../types/BetItem"
-import { uniqueId } from "lodash"
+import { uniqueId, values } from "lodash"
 import { BetNumberChip } from "./BetNumberChip"
 import { BichoModal } from "./BichoModal/BichoModal"
 import { scale } from "../../tools/scale"
+import { mask as masked } from "react-native-mask-text"
+import { unmaskCurrency } from "../../tools/unmaskCurrency"
+import unmask from "../../tools/unmask"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -32,6 +35,7 @@ interface GameProps {
 export const Game: React.FC<GameProps> = ({ route }) => {
     const game_type = route.params?.tipo
     const game = game_list.find((item) => item.path == game_type)
+    const max_length = game?.mask.length || 0
 
     const is_bicho = isBicho(game)
 
@@ -51,10 +55,13 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     const [submitionError, setSubmitionError] = useState("")
     const [bichoModal, setBichoModal] = useState(false)
 
-    const handleChangeNumber = (typed: string) => {
-        const numeric = typed.match(/\d/g)
-        if (numeric?.length == typed.length || !typed) {
-            setBetNumber(typed)
+    const handleChangeNumber = (typed: string | number) => {
+        if (!game) return
+
+        if (typeof typed === "number") {
+            setBetNumber((value) => masked(value + typed.toString(), game.mask))
+        } else {
+            setBetNumber(masked(typed, game.mask))
         }
     }
 
@@ -85,17 +92,29 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         setSelectedPrizes([])
     }
 
+    const handleBetValueChange = (typed: string | number) => {
+        if (typeof typed === "number") {
+            setBetValue((value) => Number((value * 10 + typed / 100).toFixed(2)))
+        } else {
+            if (typed.length < betValue.toString().length) {
+                setBetValue((value) => Math.floor(value * 10) / 100)
+            } else {
+                setBetValue((value) => Number((value * 10 + Number(typed) / 100).toFixed(2)))
+            }
+        }
+    }
+
     const onNumberPress = (digit: number) => {
         if (!game) return
 
         if (focusedInput == "betValue") {
-            setBetValue((value) => Number((value * 10 + digit / 100).toFixed(2)))
+            handleBetValueChange(digit)
             betValueInputRef.current?.focus()
             return
         }
 
-        if (focusedInput == "betNumber" && betNumber.length < game.max_chars) {
-            setBetNumber((value) => value + digit.toString())
+        if (focusedInput == "betNumber" && betNumber.length < max_length) {
+            handleChangeNumber(digit)
             betNumberInputRef.current?.focus()
             return
         }
@@ -108,14 +127,17 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         }
 
         if (focusedInput == "betNumber") {
-            setBetNumber((value) => value.slice(0, -1))
+            setBetNumber((value) => {
+                const last_char = value[value.length - 1]
+                return value.slice(0, isNaN(Number(last_char)) ? -2 : -1)
+            })
             betNumberInputRef.current?.focus()
             return
         }
     }
     const onConfirmPress = () => {
         if (focusedInput == "betNumber") {
-            if (betNumber.length !== game?.max_chars) return
+            if (betNumber.length !== max_length) return
             setBets((value) => [...value.filter((item) => item !== betNumber), betNumber])
             setBetNumber("")
             setTimeout(() => betNumberInputRef.current?.focus(), 100)
@@ -176,7 +198,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
     }, [betNumber, selectedPrizes, betValue])
 
     useEffect(() => {
-        if (betNumber.length === game?.max_chars) {
+        console.log(betNumber)
+        if (betNumber.length === max_length) {
             // betValueInputRef.current?.focus()
         }
     }, [betNumber])
@@ -202,9 +225,10 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                 <BetInput
                     ref={betNumberInputRef}
                     value={betNumber}
+                    maxLength={max_length}
+                    mask={game.mask}
                     onChangeText={handleChangeNumber}
                     keyboardType="number-pad"
-                    maxLength={game.max_chars}
                     onFocus={() => (is_bicho ? setBichoModal(true) : setFocusedInput("betNumber"))}
                     onSubmitEditing={onConfirmPress}
                     placeholder={is_bicho ? "Selecionar bicho" : undefined}
@@ -245,7 +269,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     <BetInput
                         ref={betValueInputRef}
                         value={currencyMask(betValue)}
-                        onChangeText={handleChangeNumber}
+                        // onChangeText={handleBetValueChange}
                         small_number={ORIENTATION === "mobile"}
                         onFocus={() => setFocusedInput("betValue")}
                     />
@@ -292,7 +316,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     <ActivityIndicator color={colors.success} />
                 )}
 
-                <BetKeyboard onNumberPress={onNumberPress} onConfirmPress={onConfirmPress} onDeletePress={onDeletePress} />
+                {/* <BetKeyboard onNumberPress={onNumberPress} onConfirmPress={onConfirmPress} onDeletePress={onDeletePress} /> */}
 
                 <BetSubmitButton onPress={handleBetSubmit} errorText={submitionError} />
             </ScrollView>
