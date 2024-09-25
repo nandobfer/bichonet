@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ssh_profile="root@agencyboz"
+ssh_profile="root@agenciaboz"
 user="nando1964"
 domain="nandoburgos.dev"
 subdomain="bichonet.nandoburgos.dev"

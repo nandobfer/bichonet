@@ -1,0 +1,13 @@
+#!/bin/bash
+
+ssh_profile="root@agenciaboz"
+user="nando1964"
+domain="nandoburgos.dev"
+subdomain="bichonet.nandoburgos.dev"
+
+path="/home/${domain}/${subdomain}"
+
+npx expo export --platform web
+echo 'Uploading build to server at' $path
+scp -r dist/* ${ssh_profile}:${path}
+ssh ${ssh_profile} "chown -R ${user}:${user} ${path}/*"
