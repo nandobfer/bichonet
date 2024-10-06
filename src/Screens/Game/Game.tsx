@@ -92,49 +92,49 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         setSelectedPrizes([])
     }
 
-    const handleBetValueChange = (typed: string | number) => {
-        if (typeof typed === "number") {
-            setBetValue((value) => Number((value * 10 + typed / 100).toFixed(2)))
-        } else {
-            if (typed.length < betValue.toString().length) {
-                setBetValue((value) => Math.floor(value * 10) / 100)
-            } else {
-                setBetValue((value) => Number((value * 10 + Number(typed) / 100).toFixed(2)))
-            }
-        }
+    const handleBetValueChange = (typed: string) => {
+        // Remove any non-digit characters
+        const digits = typed.replace(/\D/g, "")
+
+        // Convert the digits to a number and divide by 100 to get the currency value
+        const value = digits ? Number(digits) / 100 : 0
+
+        // Update the betValue state
+        setBetValue(value)
     }
 
-    const onNumberPress = (digit: number) => {
-        if (!game) return
+    // const onNumberPress = (digit: number) => {
+    //     if (!game) return
 
-        if (focusedInput == "betValue") {
-            handleBetValueChange(digit)
-            betValueInputRef.current?.focus()
-            return
-        }
+    //     if (focusedInput == "betValue") {
+    //         handleBetValueChange(digit)
+    //         betValueInputRef.current?.focus()
+    //         return
+    //     }
 
-        if (focusedInput == "betNumber" && betNumber.length < max_length) {
-            handleChangeNumber(digit)
-            betNumberInputRef.current?.focus()
-            return
-        }
-    }
-    const onDeletePress = () => {
-        if (focusedInput == "betValue") {
-            setBetValue((value) => Math.floor(value * 10) / 100)
-            betValueInputRef.current?.focus()
-            return
-        }
+    //     if (focusedInput == "betNumber" && betNumber.length < max_length) {
+    //         handleChangeNumber(digit)
+    //         betNumberInputRef.current?.focus()
+    //         return
+    //     }
+    // }
+    // const onDeletePress = () => {
+    //     if (focusedInput == "betValue") {
+    //         setBetValue((value) => Math.floor(value * 10) / 100)
+    //         betValueInputRef.current?.focus()
+    //         return
+    //     }
 
-        if (focusedInput == "betNumber") {
-            setBetNumber((value) => {
-                const last_char = value[value.length - 1]
-                return value.slice(0, isNaN(Number(last_char)) ? -2 : -1)
-            })
-            betNumberInputRef.current?.focus()
-            return
-        }
-    }
+    //     if (focusedInput == "betNumber") {
+    //         setBetNumber((value) => {
+    //             const last_char = value[value.length - 1]
+    //             return value.slice(0, isNaN(Number(last_char)) ? -2 : -1)
+    //         })
+    //         betNumberInputRef.current?.focus()
+    //         return
+    //     }
+    // }
+
     const onConfirmPress = () => {
         if (focusedInput == "betNumber") {
             if (betNumber.length !== max_length) return
@@ -231,6 +231,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     keyboardType="number-pad"
                     onFocus={() => (is_bicho ? setBichoModal(true) : setFocusedInput("betNumber"))}
                     onSubmitEditing={onConfirmPress}
+                    returnKeyType="done"
                     placeholder={is_bicho ? "Selecionar bicho" : undefined}
                 />
 
@@ -269,7 +270,8 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     <BetInput
                         ref={betValueInputRef}
                         value={currencyMask(betValue)}
-                        // onChangeText={handleBetValueChange}
+                        keyboardType="number-pad"
+                        onChangeText={handleBetValueChange}
                         small_number={ORIENTATION === "mobile"}
                         onFocus={() => setFocusedInput("betValue")}
                     />
