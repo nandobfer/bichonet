@@ -18,9 +18,20 @@ export const BettedGameComponent: React.FC<BettedGameComponentProps> = ({ game, 
 
     return (
         <View style={[{ flex: 1, gap: scale(5) }]}>
-            <Text style={[{ fontSize: scale(22), fontWeight: "bold", color: colors.secondary }, MOBILE && { fontSize: 18 }]}>
+            <Text
+                style={[
+                    {
+                        fontFamily: "Courier",
+                        fontSize: scale(16),
+                        fontWeight: "bold",
+                        color: "#000",
+                        marginBottom: scale(10),
+                    },
+                    MOBILE && { fontSize: 16 },
+                ]}
+            >
                 {game.label + " "}
-                {prizes.join(" ")}
+                {prizes.join("")}
             </Text>
             <View style={[{ gap: scale(5) }, MOBILE && { gap: 10 }]}>
                 {bets.map((bet, index) => (

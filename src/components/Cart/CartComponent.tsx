@@ -16,6 +16,7 @@ import { BetFormComponent } from "./BetFormComponent"
 import { api } from "../../backend/api"
 import unmask from "../../tools/unmask"
 import { scale } from "../../tools/scale"
+import { PerforatedEdges } from "./PerforatedEdges"
 
 interface CartComponentProps {}
 
@@ -85,12 +86,34 @@ export const CartComponent: React.FC<CartComponentProps> = ({}) => {
                 />
             </View>
 
-            <FlatList
-                data={bettedGames}
-                renderItem={({ item }) => <BettedGameComponent game={item} bets={bets.filter((bet) => bet.game.type === item.type)} />}
-                contentContainerStyle={[{ paddingVertical: scale(10), gap: scale(20) }]}
-                ListFooterComponent={<BetComponent label="TOTAL" value={total} bold error={formik.errors.bets} />}
-            />
+            <View
+                style={[
+                    {
+                        backgroundColor: "#f9f9f4", // White background to mimic paper
+                        padding: scale(20),
+                        borderRadius: scale(5),
+                        borderWidth: scale(1),
+                        borderColor: "#ccc", // Light gray border
+                        // Shadow for iOS
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 2 },
+                        shadowOpacity: 0.1,
+                        shadowRadius: scale(2),
+                        // Elevation for Android
+                        elevation: 3,
+                        position: "relative",
+                    },
+                ]}
+            >
+                <PerforatedEdges arrow="up" />
+                <FlatList
+                    data={bettedGames}
+                    renderItem={({ item }) => <BettedGameComponent game={item} bets={bets.filter((bet) => bet.game.type === item.type)} />}
+                    contentContainerStyle={[{ paddingVertical: scale(10), gap: scale(20) }]}
+                    ListFooterComponent={<BetComponent label="TOTAL" value={total} bold error={formik.errors.bets} />}
+                />
+                <PerforatedEdges arrow="down" />
+            </View>
             {!!formik.errors.bets && <Text style={[{ color: colors.error, marginTop: scale(-10) }]}>{formik.errors.bets?.toString()}</Text>}
 
             <BetFormComponent formik={formik} />

@@ -257,6 +257,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                         onChangeText={handleBetValueChange}
                         small_number={ORIENTATION === "mobile"}
                         onFocus={() => setFocusedInput("betValue")}
+                        onSubmitEditing={handleBetSubmit}
                     />
                     <View
                         style={[

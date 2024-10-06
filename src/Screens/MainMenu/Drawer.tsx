@@ -49,7 +49,7 @@ export const Drawer: React.FC<DrawerProps> = ({}) => {
                     flexDirection: "row-reverse",
                 }}
             >
-                <Surface elevation={5} style={[{ flex: 1, backgroundColor: colors.background, padding: scale(30) }]}>
+                <Surface elevation={5} style={[{ flex: 1, backgroundColor: colors.background, padding: scale(30), overflow: "scroll" }]}>
                     <CartComponent />
                 </Surface>
             </Animated.View>
