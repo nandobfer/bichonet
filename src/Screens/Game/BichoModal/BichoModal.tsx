@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { FlatList, View } from "react-native"
 import { IconButton, Modal, Text } from "react-native-paper"
 import { colors } from "../../../style/colors"
@@ -7,16 +7,51 @@ import { BichoContainer } from "./BichoContainer"
 import { bichos } from "../bichos_list"
 import { MenuButton } from "../../MainMenu/MenuButton"
 import { scale } from "../../../tools/scale"
+import { GameOption } from "../../../types/GameOption"
+import { BetsFlatlist } from "../BetsFlatlist"
+import { DESKTOP } from "../../../tools/orientation"
 
 interface SelectBichoModalProps {
     open: boolean
     onClose: () => void
-    onBichoPress: (value: string) => void
-    selected_values: string[]
+    bets: string[]
+    setBets: React.Dispatch<React.SetStateAction<string[]>>
+    game: GameOption
 }
 
-export const BichoModal: React.FC<SelectBichoModalProps> = ({ open, onClose, onBichoPress, selected_values }) => {
+export const BichoModal: React.FC<SelectBichoModalProps> = ({ open, onClose, setBets, bets, game }) => {
     const bichos_list = Object.entries(bichos)
+    const max_bichos = game.mask.split("-").length
+
+    const [selectedBichos, setSelectedBichos] = useState<string[]>([])
+
+    const onBichoPress = (bicho: string) => {
+        if (selectedBichos.includes(bicho)) {
+            setSelectedBichos((selectedBichos) => selectedBichos.filter((item) => item !== bicho))
+        } else {
+            if (max_bichos === 1) {
+                setSelectedBichos([bicho])
+                return
+            }
+
+            if (selectedBichos.length === max_bichos) return
+            setSelectedBichos((selectedBichos) => [...selectedBichos, bicho])
+        }
+    }
+
+    const handleAddBicho = (value: string) => {
+        setBets((bets) => [...bets, value])
+    }
+
+    const onConfirm = () => {
+        if (selectedBichos.length !== max_bichos) return
+
+        const bicho_string = selectedBichos.join("-")
+        if (!bets.includes(bicho_string)) {
+            handleAddBicho(bicho_string)
+        }
+        setSelectedBichos([])
+    }
 
     return (
         <Modal
@@ -32,6 +67,10 @@ export const BichoModal: React.FC<SelectBichoModalProps> = ({ open, onClose, onB
                 <IconButton icon={"close-circle"} iconColor={colors.secondary} style={[{ margin: 0 }]} onPress={onClose} />
             </View>
 
+            <View style={[{ width: scale(365) }, DESKTOP && { width: 415 }]}>
+                <BetsFlatlist bets={bets} setBets={setBets} />
+            </View>
+
             <FlatList
                 data={bichos_list}
                 renderItem={({ item, index }) => (
@@ -40,7 +79,7 @@ export const BichoModal: React.FC<SelectBichoModalProps> = ({ open, onClose, onB
                         image={item[1]}
                         value={index.toString().padStart(2, "0")}
                         onBichoPress={onBichoPress}
-                        selected={selected_values.includes(index.toString().padStart(2, "0"))}
+                        selected={selectedBichos.includes(index.toString().padStart(2, "0"))}
                     />
                 )}
                 numColumns={5}
@@ -50,7 +89,7 @@ export const BichoModal: React.FC<SelectBichoModalProps> = ({ open, onClose, onB
                 scrollEnabled={false}
             />
 
-            <MenuButton buttonColor={selected_values.length === 0 ? colors.primary : colors.success} onPress={onClose}>
+            <MenuButton buttonColor={selectedBichos.length === max_bichos ? colors.success : colors.primary} onPress={onConfirm}>
                 Continuar
             </MenuButton>
         </Modal>

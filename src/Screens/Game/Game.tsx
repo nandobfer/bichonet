@@ -27,6 +27,7 @@ import { scale } from "../../tools/scale"
 import { mask as masked } from "react-native-mask-text"
 import { unmaskCurrency } from "../../tools/unmaskCurrency"
 import unmask from "../../tools/unmask"
+import { BetsFlatlist } from "./BetsFlatlist"
 
 interface GameProps {
     route: RouteProp<any, any>
@@ -150,10 +151,6 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         }
     }
 
-    const onDeleteBetNumber = (value: string) => {
-        setBets((values) => values.filter((item) => item !== value))
-    }
-
     const validateBet = () => {
         if (!game) return
 
@@ -183,14 +180,6 @@ export const Game: React.FC<GameProps> = ({ route }) => {
         addBet(items)
         resetGame()
         fetchQuotes()
-    }
-
-    const handleBichoPress = (value: string) => {
-        if (bets.includes(value)) {
-            setBets((bets) => bets.filter((item) => item !== value))
-        } else {
-            setBets((bets) => [...bets, value])
-        }
     }
 
     useEffect(() => {
@@ -236,14 +225,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     showSoftInputOnFocus={!is_bicho}
                 />
 
-                <FlatList
-                    data={bets}
-                    renderItem={({ item }) => <BetNumberChip value={item} onDelete={onDeleteBetNumber} />}
-                    ListEmptyComponent={<View style={[{ height: 32 }]} />}
-                    horizontal
-                    style={[{ marginHorizontal: scale(-30) }]}
-                    contentContainerStyle={[{ paddingHorizontal: scale(30), gap: scale(15) }, ORIENTATION === "mobile" && { paddingVertical: 0 }]}
-                />
+                <BetsFlatlist bets={bets} setBets={setBets} />
 
                 <GameText>
                     Selecione os prêmios:{" "}
@@ -323,7 +305,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
 
                 <BetSubmitButton onPress={handleBetSubmit} errorText={submitionError} />
             </ScrollView>
-            <BichoModal open={bichoModal} onClose={() => setBichoModal(false)} onBichoPress={handleBichoPress} selected_values={bets} />
+            <BichoModal open={bichoModal} onClose={() => setBichoModal(false)} bets={bets} setBets={setBets} game={game} />
         </DefaultWrapper>
     ) : null
 }
