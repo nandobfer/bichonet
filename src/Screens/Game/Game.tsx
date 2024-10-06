@@ -233,6 +233,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                     onSubmitEditing={onConfirmPress}
                     returnKeyType="done"
                     placeholder={is_bicho ? "Selecionar bicho" : undefined}
+                    showSoftInputOnFocus={!is_bicho}
                 />
 
                 <FlatList
