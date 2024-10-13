@@ -37,25 +37,16 @@ export const useUser = () => {
         }
     }
 
-    const refreshNotifications = async () => {
-        if (!context.user) return
+
+    const fetchBalance = async () => {
         try {
-            const response = await api.get("/user/notifications", { params: { user_id: context.user.id } })
-            // @ts-ignore
-            context.setUser((user) => ({ ...user, notifications: response.data }))
+            const response = await api.get("/wallet", { headers: { Authorization: `Bearer ${context.accessToken}` } })
+            return Number(response.data.balance)
         } catch (error) {
             console.log(error)
+            return 0
         }
     }
 
-    const sendViewedNotification = async (notification_id: string) => {
-        try {
-            const response = await api.post("/notification/viewed", { id: notification_id })
-            context.updateNotification(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    return { ...context, onLogin, logout, refresh, sendViewedNotification, refreshNotifications }
+    return { ...context, onLogin, logout, refresh, fetchBalance }
 }

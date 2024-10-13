@@ -48,6 +48,10 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }, [])
 
     useEffect(() => {
+        console.log({ accessToken, user })
+    }, [accessToken, user])
+
+    useEffect(() => {
         saveLocally()
     }, [user])
 
