@@ -1,25 +1,34 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import { ScrollView, View } from "react-native"
 import { colors } from "../../style/colors"
 import { Text } from "react-native-paper"
 import { Image } from "expo-image"
 import { HomeButton } from "./HomeButton"
 import { SupportBanner } from "./SupportBanner"
-import { useLinkTo } from "@react-navigation/native"
+import { useFocusEffect, useLinkTo } from "@react-navigation/native"
 import { Logo } from "../../components/Logo"
 import { MOBILE, DESKTOP } from "../../tools/orientation"
 import { LoginForm } from "./LoginForm"
 import { Signup } from "../Signup/Signup"
 import { SignupForm } from "../Signup/SignupForm"
 import { scale } from "../../tools/scale"
+import { useUser } from "../../hooks/useUser"
 
 interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = ({}) => {
     const linkTo = useLinkTo()
 
+    const { setUser } = useUser()
+
     const [loginForm, setLoginForm] = useState(false)
     const [signupForm, setSignupForm] = useState(false)
+
+    useFocusEffect(
+        useCallback(() => {
+            setUser(null)
+        }, [])
+    )
 
     return (
         <View style={[{ flex: 1, backgroundColor: colors.background }, DESKTOP ? { flexDirection: "row" } : { padding: 50, paddingBottom: 0 }]}>
@@ -34,7 +43,9 @@ export const Home: React.FC<HomeProps> = ({}) => {
                         : { gap: 30, paddingHorizontal: 50, paddingBottom: 0, paddingTop: 30, flex: 1 },
                 ]}
             >
-                <View style={[{ flexDirection: "row", alignItems: "center", gap: 25 }, DESKTOP && { flexDirection: "column-reverse", gap: scale(50) }]}>
+                <View
+                    style={[{ flexDirection: "row", alignItems: "center", gap: 25 }, DESKTOP && { flexDirection: "column-reverse", gap: scale(50) }]}
+                >
                     <Text
                         style={[
                             { color: colors.secondary, fontSize: 17, fontWeight: "bold" },
