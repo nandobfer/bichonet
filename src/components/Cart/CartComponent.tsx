@@ -17,6 +17,8 @@ import { api } from "../../backend/api"
 import unmask from "../../tools/unmask"
 import { scale } from "../../tools/scale"
 import { PerforatedEdges } from "./PerforatedEdges"
+import { GameOption } from "../../types/GameOption"
+import { BetItem } from "../../types/BetItem"
 
 interface CartComponentProps {}
 
@@ -25,7 +27,13 @@ export const CartComponent: React.FC<CartComponentProps> = ({}) => {
     const { bets, total } = useCart()
     const { user, accessToken } = useUser()
 
-    const bettedGames = game_list.filter((item) => bets.find((bet) => bet.game.type == item.type))
+    // const bettedGames = game_list.filter((item) => bets.find((bet) => bet.game.type == item.type))
+    const bettedGames: (GameOption & { selectedPrize: number })[] = []
+    bets.forEach((bet) => {
+        if (!bettedGames.find((item) => item.type === bet.game.type && item.selectedPrize === bet.selectedPrizes.length)) {
+            bettedGames.push({ ...game_list.find((item) => item.type === bet.game.type)!, selectedPrize: bet.selectedPrizes.length })
+        }
+    })
 
     const [loading, setLoading] = useState(false)
 
@@ -108,7 +116,13 @@ export const CartComponent: React.FC<CartComponentProps> = ({}) => {
                 <PerforatedEdges arrow="up" />
                 <FlatList
                     data={bettedGames}
-                    renderItem={({ item }) => <BettedGameComponent game={item} bets={bets.filter((bet) => bet.game.type === item.type)} />}
+                    renderItem={({ item }) => (
+                        <BettedGameComponent
+                            game={item}
+                            bets={bets.filter((bet) => bet.game.type === item.type && bet.selectedPrizes.length === item.selectedPrize)}
+                            prize={item.selectedPrize}
+                        />
+                    )}
                     contentContainerStyle={[{ paddingVertical: scale(10), gap: scale(20) }]}
                     ListFooterComponent={<BetComponent label="TOTAL" value={total} bold error={formik.errors.bets} />}
                 />

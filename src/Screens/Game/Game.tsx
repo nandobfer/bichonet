@@ -291,7 +291,7 @@ export const Game: React.FC<GameProps> = ({ route }) => {
                             data={quotes}
                             renderItem={({ item }) => (
                                 <GameText style={[{ color: colors.success, fontWeight: "bold" }]}>
-                                    {currencyMask(calculateQuote(betValue, item.valor))}
+                                    {currencyMask(calculateQuote(betValue, item.valor, selectedPrizes.length))}
                                 </GameText>
                             )}
                             contentContainerStyle={[{ gap: scale(8), paddingVertical: scale(5) }]}

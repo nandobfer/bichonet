@@ -11,11 +11,10 @@ import { scale } from "../../tools/scale"
 interface BettedGameComponentProps {
     game: GameOption
     bets: BetItem[]
+    prize: number
 }
 
-export const BettedGameComponent: React.FC<BettedGameComponentProps> = ({ game, bets }) => {
-    const prizes = [...new Set(bets.map((item) => item.selectedPrizes).flatMap((item) => item))].map((item) => `(${item})`)
-
+export const BettedGameComponent: React.FC<BettedGameComponentProps> = ({ game, bets, prize }) => {
     return (
         <View style={[{ flex: 1, gap: scale(5) }]}>
             <Text
@@ -30,8 +29,7 @@ export const BettedGameComponent: React.FC<BettedGameComponentProps> = ({ game, 
                     MOBILE && { fontSize: 16 },
                 ]}
             >
-                {game.label + " "}
-                {prizes.join("")}
+                {game.label + " "}({prize === 1 ? "1º" : "1º ao 5º"})
             </Text>
             <View style={[{ gap: scale(5) }, MOBILE && { gap: 10 }]}>
                 {bets.map((bet, index) => (
