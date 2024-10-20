@@ -1,12 +1,12 @@
-import { TransactionResponse } from "../types/TransactionResponse"
+import { TransactionItem } from "../types/TransactionItem"
 
-export const formatTransactionType = (transaction: TransactionResponse) => {
+export const formatTransactionType = (transaction: TransactionItem) => {
     const types = {
         0: "Depósito",
         1: "Saque",
-        2: "Prêmio",
-        3: "Aposta",
+        2: "Aposta",
+        3: "Prêmio",
     }
 
-    return types[transaction.type]
+    return types[transaction.transactionType]
 }

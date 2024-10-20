@@ -15,7 +15,7 @@ import { useFocusEffect } from "@react-navigation/native"
 interface WalletProps {}
 
 export const Wallet: React.FC<WalletProps> = ({}) => {
-    const { user, fetchBalance } = useUser()
+    const { user, fetchBalance, handleNotUser } = useUser()
 
     const [loading, setLoading] = useState(true)
     const [balance, setBalance] = useState(0)
@@ -29,6 +29,10 @@ export const Wallet: React.FC<WalletProps> = ({}) => {
 
     useFocusEffect(
         useCallback(() => {
+            if (!user) {
+                handleNotUser()
+                return
+            }
             requestBalance()
         }, [user])
     )
