@@ -13,7 +13,6 @@ interface TransactionContainerProps {
 
 export const TransactionContainer: React.FC<TransactionContainerProps> = ({ transaction }) => {
     const is_adding = transaction.transactionType === TransactionType.DEPOSIT
-    console.log(transaction.createdAt)
 
     return (
         <View style={[{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }]}>
